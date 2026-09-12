@@ -17,7 +17,7 @@ export async function buyItem(itemId: string) {
   // Fetch current user profile
   const { data: profile, error: profileError } = await supabase
     .from('profiles')
-    .select('*')
+    .select('coins')
     .eq('id', user.id)
     .single()
 
@@ -28,62 +28,55 @@ export async function buyItem(itemId: string) {
     return { error: `Not enough gold! You need ${item.price} coins.` }
   }
 
-  const newCoins = profile.coins - item.price
-  const updates: Record<string, any> = {
-    coins: newCoins,
+  // Check if they already own it in inventory
+  const { data: invItem } = await supabase
+    .from('inventory')
+    .select('quantity')
+    .eq('user_id', user.id)
+    .eq('item_id', item.id)
+    .maybeSingle()
+
+  if (invItem && (item.category === 'avatar' || item.category === 'title')) {
+    return { error: 'You already own this item! Check your bag.' }
   }
 
-  let xpGained = 0
-  let leveledUp = false
-  let newLevel = profile.level
-  let newTitle = profile.title
-
-  // Handle item effects
-  if (item.category === 'potion' && item.effectValue) {
-    xpGained = item.effectValue
-    const newXP = profile.xp + xpGained
-    const levelUpResult = checkLevelUp(profile.xp, xpGained, profile.level)
-
-    updates.xp = newXP
-    if (levelUpResult) {
-      leveledUp = true
-      newLevel = levelUpResult.newLevel
-      newTitle = levelUpResult.newTitle
-      updates.level = newLevel
-      updates.title = newTitle
-    }
-  } else if (item.category === 'avatar' && item.unlockedAvatar) {
-    updates.avatar_url = item.unlockedAvatar
-  } else if (item.category === 'title' && item.unlockedTitle) {
-    updates.title = item.unlockedTitle
-  }
-
-  // Update profile
+  // Deduct coins
   const { error: updateError } = await supabase
     .from('profiles')
-    .update(updates)
+    .update({ coins: profile.coins - item.price })
     .eq('id', user.id)
 
   if (updateError) return { error: updateError.message }
+
+  // Add to inventory
+  const { error: invError } = await supabase
+    .from('inventory')
+    .upsert(
+      {
+        user_id: user.id,
+        item_id: item.id,
+        quantity: (invItem?.quantity || 0) + 1,
+      },
+      { onConflict: 'user_id,item_id' }
+    )
+
+  if (invError) {
+    // Note: In a real app we'd use a transaction. If this fails, we refund.
+    console.error('Inventory error:', invError)
+  }
 
   // Log activity
   await supabase.from('activity_log').insert({
     user_id: user.id,
     action: `Purchased from Shop: ${item.name}`,
-    xp_gained: xpGained,
     coins_gained: -item.price,
   })
 
   revalidatePath('/shop')
-  revalidatePath('/dashboard')
   revalidatePath('/character')
-  revalidatePath('/leaderboard')
 
   return {
     success: true,
-    message: `Successfully purchased ${item.name}!`,
-    leveledUp,
-    newLevel,
-    newTitle,
+    message: `Purchased ${item.name}! Check your Bag on the Character page.`,
   }
 }

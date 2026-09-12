@@ -7,12 +7,13 @@ export default async function CharacterPage() {
 
   if (!user) return null
 
-  const [{ data: profile }, { data: stats }] = await Promise.all([
+  const [{ data: profile }, { data: stats }, { data: inventory }] = await Promise.all([
     supabase.from('profiles').select('*').eq('id', user.id).single(),
     supabase.from('stats').select('*').eq('user_id', user.id).order('name'),
+    supabase.from('inventory').select('*').eq('user_id', user.id).order('created_at', { ascending: false }),
   ])
 
   if (!profile) return null
 
-  return <CharacterClient profile={profile} stats={stats || []} />
+  return <CharacterClient profile={profile} stats={stats || []} inventory={inventory || []} />
 }

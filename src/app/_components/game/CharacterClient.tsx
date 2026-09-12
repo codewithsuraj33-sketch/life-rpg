@@ -5,6 +5,7 @@ import { updateProfile } from '@/app/_actions/character'
 import { Card, CardHeader, CardTitle } from '@/app/_components/ui/Card'
 import { Badge } from '@/app/_components/ui/Badge'
 import { ProgressBar } from '@/app/_components/ui/ProgressBar'
+import { InventoryClient } from './InventoryClient'
 import { calculateProgress } from '@/app/_lib/xp'
 import { TITLES } from '@/app/_lib/constants'
 import {
@@ -41,9 +42,11 @@ const AVATAR_OPTIONS = ['🧙', '⚔️', '🏹', '🛡️', '🧝', '🥷', '�
 export function CharacterClient({
   profile,
   stats,
+  inventory,
 }: {
   profile: Profile
   stats: Stat[]
+  inventory: any[]
 }) {
   const [selectedAvatar, setSelectedAvatar] = useState(profile.avatar_url || '🧙')
   const [username, setUsername] = useState(profile.username)
@@ -172,6 +175,9 @@ export function CharacterClient({
               </div>
             </div>
           </Card>
+
+          {/* Bag / Inventory */}
+          <InventoryClient items={inventory} />
         </div>
 
         {/* Right 2 Cols: Detailed Stats & Title Progression */}
