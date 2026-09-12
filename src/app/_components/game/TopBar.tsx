@@ -1,0 +1,158 @@
+'use client'
+
+import { signOut } from '@/app/_actions/auth'
+import { LogOut, Menu } from 'lucide-react'
+import { calculateProgress } from '@/app/_lib/xp'
+import { useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import {
+  LayoutDashboard,
+  Scroll,
+  UserCircle,
+  Trophy,
+  Crown,
+  Sword,
+  ShoppingBag,
+  X,
+} from 'lucide-react'
+import { cn } from '@/app/_lib/utils'
+
+interface Profile {
+  id: string
+  username: string
+  avatar_url: string
+  level: number
+  xp: number
+  coins: number
+  title: string
+}
+
+const navItems = [
+  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/quests', label: 'Quests', icon: Scroll },
+  { href: '/character', label: 'Character', icon: UserCircle },
+  { href: '/shop', label: 'Item Shop', icon: ShoppingBag },
+  { href: '/achievements', label: 'Achievements', icon: Trophy },
+  { href: '/leaderboard', label: 'Leaderboard', icon: Crown },
+]
+
+export function TopBar({ profile }: { profile: Profile }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const { currentXP, xpForNextLevel, progress } = calculateProgress(profile.xp, profile.level)
+
+  return (
+    <>
+      <header className="flex items-center justify-between px-3.5 sm:px-6 py-2.5 sm:py-3 border-b border-[var(--border-default)] bg-[var(--bg-secondary)]/80 backdrop-blur-md gap-2 sm:gap-4">
+        {/* Mobile menu button */}
+        <button
+          className="md:hidden p-1.5 -ml-1 text-muted hover:text-gold transition-colors cursor-pointer rounded-lg hover:bg-[var(--bg-card)]"
+          onClick={() => setMobileMenuOpen(true)}
+          aria-label="Open navigation menu"
+        >
+          <Menu className="w-5 h-5" />
+        </button>
+
+        {/* XP Bar */}
+        <div className="flex-1 max-w-xs sm:max-w-md mx-1 sm:mx-4 min-w-0">
+          <div className="flex items-center justify-between text-[11px] sm:text-xs mb-1">
+            <span className="text-gold font-semibold truncate max-w-[110px] sm:max-w-none">
+              Lv.{profile.level} <span className="hidden xs:inline">{profile.title}</span>
+            </span>
+            <span className="text-muted font-mono text-[10px] sm:text-xs">
+              {currentXP}/{xpForNextLevel}
+            </span>
+          </div>
+          <div className="xp-bar h-2 sm:h-2.5">
+            <div
+              className="xp-bar-fill"
+              style={{ width: `${progress * 100}%` }}
+            />
+          </div>
+        </div>
+
+        {/* Coins + Logout */}
+        <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+          <div className="flex items-center gap-1 text-gold font-mono font-bold text-xs sm:text-sm bg-amber-500/10 border border-amber-500/20 px-2 py-1 rounded-md sm:bg-transparent sm:border-0 sm:p-0">
+            <span>🪙</span>
+            <span>{profile.coins.toLocaleString()}</span>
+          </div>
+          <form action={signOut}>
+            <button
+              type="submit"
+              className="p-1.5 text-muted hover:text-rose-400 transition-colors cursor-pointer rounded-lg hover:bg-[var(--bg-card)]"
+              title="Sign Out"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
+          </form>
+        </div>
+      </header>
+
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 md:hidden">
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+          <div className="absolute left-0 top-0 bottom-0 w-64 bg-[var(--bg-secondary)] border-r border-[var(--border-default)] animate-slide-in">
+            {/* Close button */}
+            <div className="flex items-center justify-between px-6 py-5 border-b border-[var(--border-default)]">
+              <div className="flex items-center gap-2">
+                <Sword className="w-6 h-6 text-gold" />
+                <span className="text-xl font-bold">
+                  Life<span className="text-gold">RPG</span>
+                </span>
+              </div>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-muted hover:text-gold"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Character */}
+            <div className="px-4 py-5 border-b border-[var(--border-default)]">
+              <div className="flex items-center gap-3">
+                <div className="text-3xl">{profile.avatar_url}</div>
+                <div>
+                  <p className="font-semibold text-sm">{profile.username}</p>
+                  <p className="text-xs text-gold">
+                    Lv.{profile.level} {profile.title}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Nav */}
+            <nav className="px-3 py-4 space-y-1">
+              {navItems.map((item) => {
+                const isActive = pathname === item.href
+                const Icon = item.icon
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={cn(
+                      'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all',
+                      isActive
+                        ? 'bg-gold/10 text-gold border border-gold/20'
+                        : 'text-muted hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)]'
+                    )}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {item.label}
+                  </Link>
+                )
+              })}
+            </nav>
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
