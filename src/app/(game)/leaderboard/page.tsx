@@ -31,6 +31,18 @@ export default async function LeaderboardPage({
           <p className="text-sm text-muted mt-1">
             Top adventurers ranked by level, battle experience, and glory.
           </p>
+          
+          <div className="flex flex-wrap items-center gap-3 mt-4">
+            <span className="text-xs font-semibold bg-amber-950/30 text-amber-400 border border-amber-500/20 px-2 py-1 rounded">
+              Weekly Champ: <span className="font-bold">100 Gold</span>
+            </span>
+            <span className="text-xs font-semibold bg-amber-950/30 text-amber-400 border border-amber-500/20 px-2 py-1 rounded">
+              Monthly Champ: <span className="font-bold">500 Gold</span>
+            </span>
+            <span className="text-xs font-semibold bg-amber-950/30 text-amber-400 border border-amber-500/20 px-2 py-1 rounded">
+              Yearly Champ: <span className="font-bold">2000 Gold</span>
+            </span>
+          </div>
         </div>
       </div>
 

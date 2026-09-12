@@ -79,11 +79,12 @@ body {
   min-height: 100vh;
 }
 
-/* Global Smoothness */
+/* Global Smoothness & Mobile Fix */
 a, button, input, select, textarea {
   transition-property: color, background-color, border-color, box-shadow, transform, opacity, filter;
   transition-duration: 0.15s;
   transition-timing-function: ease-out;
+  touch-action: manipulation; /* Fixes 300ms mobile tap delay */
 }
 
 /* ============================================
