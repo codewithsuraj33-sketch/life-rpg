@@ -81,7 +81,7 @@ export default async function LeaderboardPage({
       {/* Dynamic Subtext */}
       {tab !== 'all' && (
         <p className="text-xs font-semibold text-amber-400 bg-amber-950/30 inline-block px-3 py-1.5 rounded border border-amber-500/20">
-          The champion at the end of the {tab.replace('ly','')} is automatically awarded Gold points!
+          The champion at the end of the {tab.replace('ly','')} is automatically awarded {tab === 'weekly' ? '100' : tab === 'monthly' ? '500' : '2000'} Gold points!
         </p>
       )}
 
