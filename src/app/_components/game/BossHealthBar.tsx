@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Card } from './ui/Card'
+import { Card } from '@/app/_components/ui/Card'
 import { Flame } from 'lucide-react'
 
 interface BossHealthBarProps {

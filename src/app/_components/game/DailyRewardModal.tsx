@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Modal } from './ui/Modal'
+import { Modal } from '@/app/_components/ui/Modal'
 import { claimDailyReward } from '@/app/_actions/daily'
 import { playSound } from '@/app/_lib/sound'
 import { Coins, Sparkles } from 'lucide-react'

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Modal } from './ui/Modal'
+import { Modal } from '@/app/_components/ui/Modal'
 import { setClassType } from '@/app/_actions/profile'
 import { playSound } from '@/app/_lib/sound'
 import { Shield, Book, Users } from 'lucide-react'
