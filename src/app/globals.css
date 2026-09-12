@@ -79,6 +79,11 @@ body {
   min-height: 100vh;
 }
 
+/* Global Smoothness */
+a, button, input, select, textarea {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* ============================================
    Glassmorphism Card
    ============================================ */
