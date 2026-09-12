@@ -3,8 +3,12 @@
 import { createClient } from '@/app/_lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { checkLevelUp } from '@/app/_lib/xp'
+import { checkAndDistributeRewards } from './leaderboard'
 
 export async function claimDailyReward() {
+  // Run leaderboard checks in background non-blocking
+  checkAndDistributeRewards().catch(console.error)
+
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: 'Not authenticated' }

@@ -2,31 +2,88 @@ import { createClient } from '@/app/_lib/supabase/server'
 import { Card } from '@/app/_components/ui/Card'
 import { Badge } from '@/app/_components/ui/Badge'
 import { Crown, Sparkles, Trophy, Flame } from 'lucide-react'
+import Link from 'next/link'
+import { getLeaderboard } from '@/app/_actions/leaderboard'
 
-export default async function LeaderboardPage() {
+export default async function LeaderboardPage({
+  searchParams,
+}: {
+  searchParams: { tab?: string }
+}) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) return null
 
-  // Fetch top 50 players by level and xp
-  const { data: topPlayers } = await supabase
-    .from('profiles')
-    .select('id, username, avatar_url, level, xp, title, coins')
-    .order('level', { ascending: false })
-    .order('xp', { ascending: false })
-    .limit(50)
+  // Await searchParams before reading properties (Next.js 15+ best practice)
+  const resolvedSearchParams = await Promise.resolve(searchParams)
+  const tab = (resolvedSearchParams.tab || 'all') as 'all' | 'weekly' | 'monthly' | 'yearly'
+  
+  const topPlayers = await getLeaderboard(tab)
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      <div>
-        <h1 className="text-2xl sm:text-3xl font-black tracking-tight flex items-center gap-2.5">
-          <span>👑</span> Realm Leaderboard
-        </h1>
-        <p className="text-sm text-muted mt-1">
-          Top adventurers ranked by level, battle experience, and glory.
-        </p>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight flex items-center gap-2.5">
+            <span>👑</span> Realm Leaderboard
+          </h1>
+          <p className="text-sm text-muted mt-1">
+            Top adventurers ranked by level, battle experience, and glory.
+          </p>
+        </div>
       </div>
+
+      {/* Tabs */}
+      <div className="flex overflow-x-auto gap-2 pb-2 scrollbar-hide">
+        <Link
+          href="?tab=all"
+          className={`px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-all ${
+            tab === 'all'
+              ? 'bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.4)]'
+              : 'bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-amber-500/50'
+          }`}
+        >
+          All Time
+        </Link>
+        <Link
+          href="?tab=weekly"
+          className={`px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-all ${
+            tab === 'weekly'
+              ? 'bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.4)]'
+              : 'bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-amber-500/50'
+          }`}
+        >
+          This Week
+        </Link>
+        <Link
+          href="?tab=monthly"
+          className={`px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-all ${
+            tab === 'monthly'
+              ? 'bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.4)]'
+              : 'bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-amber-500/50'
+          }`}
+        >
+          This Month
+        </Link>
+        <Link
+          href="?tab=yearly"
+          className={`px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-all ${
+            tab === 'yearly'
+              ? 'bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.4)]'
+              : 'bg-[var(--bg-secondary)] border border-[var(--border-default)] hover:border-amber-500/50'
+          }`}
+        >
+          This Year
+        </Link>
+      </div>
+      
+      {/* Dynamic Subtext */}
+      {tab !== 'all' && (
+        <p className="text-xs font-semibold text-amber-400 bg-amber-950/30 inline-block px-3 py-1.5 rounded border border-amber-500/20">
+          The champion at the end of the {tab.replace('ly','')} is automatically awarded Gold points!
+        </p>
+      )}
 
       {/* Top 3 Podium (if at least 3 players exist) */}
       {topPlayers && topPlayers.length >= 3 && (
@@ -120,7 +177,7 @@ export default async function LeaderboardPage() {
               )
             })
           ) : (
-            <p className="text-center py-8 text-sm text-muted">No heroes have joined the realm yet.</p>
+            <p className="text-center py-8 text-sm text-muted">No activities found for this time period.</p>
           )}
         </div>
       </Card>
