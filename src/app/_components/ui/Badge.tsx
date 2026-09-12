@@ -11,7 +11,7 @@ export function Badge({ className, variant = 'default', children, ...props }: Ba
     success: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
     danger: 'bg-rose-500/10 text-rose-400 border-rose-500/30',
     purple: 'bg-purple-500/10 text-purple-400 border-purple-500/30',
-    blue: 'bg-blue-500/10 text-blue-400 border-blue-500/30',
+    blue: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30',
   }
 
   return (

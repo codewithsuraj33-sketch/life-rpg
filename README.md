@@ -92,3 +92,43 @@ npm run build
 ## 🔒 Security & Data Persistence
 - Authentication and session cookies are refreshed via middleware.
 - PostgreSQL tables are safeguarded with **Row Level Security (RLS)** — users can only view and mutate their own tasks and character data.
+
+---
+
+## 🏆 Hackathon Disclosures & Team
+
+### 🤖 AI Tools Used
+- **Code Assistance**: Google Gemini / Antigravity AI used for pair programming, rapid prototyping, and debugging complex Supabase RLS policies.
+- **Asset Generation**: No external AI generated assets (images/audio) were used; all UI is built with Tailwind CSS.
+
+### 📚 Libraries & Frameworks
+- **Framework**: Next.js 16 (App Router)
+- **Styling**: Tailwind CSS 4
+- **Database & Auth**: Supabase (PostgreSQL)
+- **Icons**: Lucide React
+- **Animations**: canvas-confetti (for Level Up celebrations)
+
+### 🎨 UI Templates & Boilerplate
+- **Custom Built**: The entire UI and "Cyber-Fantasy" design system was custom-built from scratch for this project. No external pre-made UI templates or boilerplates were used.
+
+### 👥 Team Members & Contributions
+*(Note: Replace with actual team names and roles)*
+1. **[Member 1 Name]** - Lead Developer (Architecture, Next.js Setup, Supabase Integration)
+2. **[Member 2 Name]** - Frontend Engineer (UI/UX Design, CSS styling, Gamification logic)
+3. **[Member 3 Name]** - Backend Engineer (Database Schema, RLS Policies, Auth flow)
+4. **[Member 4 Name]** - Product/QA (Testing, Presentation, Video Editing, Documentation)
+
+---
+
+## 🎥 Submission Package Ready
+
+### A. Working Demo
+- **Live Link**: [Insert Vercel/Netlify Deployment URL here]
+
+### B. GitHub Repository
+- **Source Code**: [Insert GitHub Repo URL]
+- Note: Environment variables are securely handled. Only `.env.example` is committed.
+
+### C. Illustration Video
+- **Video Link**: [Insert YouTube/Loom Link here]
+- **Details**: 90–180 seconds demo highlighting Signup, Quest Creation, XP/Level progression, and database persistence (refresh-proof).

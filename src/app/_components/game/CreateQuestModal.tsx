@@ -36,22 +36,22 @@ export function CreateQuestModal({ stats }: { stats: Stat[] }) {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-black font-semibold text-sm shadow-md transition-all cursor-pointer"
+        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[var(--purple)] hover:bg-[#7c3aed] text-white font-semibold text-sm shadow-md transition-all cursor-pointer"
       >
         <Plus className="w-4 h-4" />
         New Quest
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-3.5 sm:p-4">
-          <div className="w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl border border-amber-500/30 bg-[var(--bg-card)] p-5 sm:p-6 shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-3.5 sm:p-4">
+          <div className="w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-[32px] border border-[var(--border-default)] bg-[var(--bg-card)] p-5 sm:p-6 shadow-2xl">
             <div className="flex items-center justify-between pb-3 border-b border-[var(--border-default)] sticky top-0 bg-[var(--bg-card)] z-10">
-              <h2 className="text-base sm:text-lg font-bold flex items-center gap-2">
+              <h2 className="text-base sm:text-lg font-bold flex items-center gap-2 text-[var(--text-primary)]">
                 <span>⚔️</span> Forge New Quest
               </h2>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-muted hover:text-white transition-colors cursor-pointer p-1"
+                className="text-muted hover:text-[var(--text-primary)] transition-colors cursor-pointer p-1"
                 aria-label="Close modal"
               >
                 <X className="w-5 h-5" />
@@ -72,7 +72,7 @@ export function CreateQuestModal({ stats }: { stats: Stat[] }) {
                   name="title"
                   required
                   placeholder="e.g. Read 20 pages of a book"
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] text-sm focus:outline-none focus:border-amber-500/50"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-transparent bg-[#f1f0f5] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[var(--purple)] focus:ring-2 focus:ring-[var(--purple-bg)] transition-all"
                 />
               </div>
 
@@ -83,7 +83,7 @@ export function CreateQuestModal({ stats }: { stats: Stat[] }) {
                   name="description"
                   rows={2}
                   placeholder="Add details, objectives, or instructions..."
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] text-sm focus:outline-none focus:border-amber-500/50 resize-none"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-transparent bg-[#f1f0f5] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[var(--purple)] focus:ring-2 focus:ring-[var(--purple-bg)] transition-all resize-none"
                 />
               </div>
 
@@ -95,7 +95,7 @@ export function CreateQuestModal({ stats }: { stats: Stat[] }) {
                     name="type"
                     value={type}
                     onChange={(e) => setType(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] text-sm focus:outline-none focus:border-amber-500/50"
+                    className="w-full px-3 py-2 rounded-lg border border-transparent bg-[#f1f0f5] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[var(--purple)]"
                   >
                     <option value="todo">Task (One-time)</option>
                     <option value="daily">Daily Habit</option>
@@ -110,7 +110,7 @@ export function CreateQuestModal({ stats }: { stats: Stat[] }) {
                     name="difficulty"
                     value={difficulty}
                     onChange={(e) => setDifficulty(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] text-sm focus:outline-none focus:border-amber-500/50"
+                    className="w-full px-3 py-2 rounded-lg border border-transparent bg-[#f1f0f5] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[var(--purple)]"
                   >
                     <option value="easy">Easy (+15 XP)</option>
                     <option value="medium">Medium (+30 XP)</option>
@@ -141,7 +141,7 @@ export function CreateQuestModal({ stats }: { stats: Stat[] }) {
                 <label className="block text-xs font-semibold text-muted mb-1">Character Attribute</label>
                 <select
                   name="stat_id"
-                  className="w-full px-3 py-2 rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] text-sm focus:outline-none focus:border-amber-500/50"
+                  className="w-full px-3 py-2 rounded-lg border border-transparent bg-[#f1f0f5] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[var(--purple)]"
                 >
                   <option value="">None (General XP)</option>
                   {stats.map((s) => (
@@ -161,18 +161,18 @@ export function CreateQuestModal({ stats }: { stats: Stat[] }) {
               </div>
 
               {/* Actions */}
-              <div className="flex items-center justify-end gap-3 pt-2">
+              <div className="flex items-center justify-end gap-3 pt-4">
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
-                  className="px-4 py-2 rounded-lg border border-[var(--border-default)] text-sm text-muted hover:text-white transition-colors"
+                  className="px-5 py-2.5 rounded-full border border-[var(--border-default)] text-sm font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-5 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-black font-semibold text-sm disabled:opacity-50 transition-colors cursor-pointer"
+                  className="px-6 py-2.5 rounded-full bg-[var(--purple)] hover:bg-[#7c3aed] text-white font-bold text-sm shadow-md disabled:opacity-50 transition-colors cursor-pointer"
                 >
                   {loading ? 'Creating...' : 'Accept Quest'}
                 </button>

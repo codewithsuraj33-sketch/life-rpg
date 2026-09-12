@@ -26,9 +26,9 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="text-center mb-8 animate-fade-in">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
-            <Sword className="w-8 h-8 text-gold" />
-            <span className="text-2xl font-bold tracking-tight">
-              Life<span className="text-gold">RPG</span>
+            <Sword className="w-8 h-8 text-[var(--purple)]" />
+            <span className="text-2xl font-black tracking-tight text-[var(--text-primary)]">
+              LIFE<span className="text-[var(--purple)]">RPG</span>
             </span>
           </Link>
           <h1 className="text-3xl font-bold mt-2">Welcome Back, Hero</h1>
@@ -74,7 +74,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-gold transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-[var(--purple)] transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -101,7 +101,7 @@ export default function LoginPage() {
         {/* Sign up link */}
         <p className="text-center mt-6 text-muted text-sm animate-fade-in" style={{ animationDelay: '0.2s' }}>
           New to the adventure?{' '}
-          <Link href="/signup" className="text-gold hover:underline font-medium">
+          <Link href="/signup" className="text-[var(--purple)] hover:underline font-bold">
             Create Your Character
           </Link>
         </p>

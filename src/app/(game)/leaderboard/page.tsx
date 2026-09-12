@@ -189,7 +189,7 @@ export default async function LeaderboardPage({
               )
             })
           ) : (
-            <p className="text-center py-8 text-sm text-muted">No activities found for this time period.</p>
+            <p className="text-center py-8 text-sm text-muted">No players ranked yet. Be the first to claim glory!</p>
           )}
         </div>
       </Card>

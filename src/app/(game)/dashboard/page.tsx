@@ -5,6 +5,7 @@ import { DailyRewardModal } from '@/app/_components/game/DailyRewardModal'
 import { ClassSelectionModal } from '@/app/_components/game/ClassSelectionModal'
 import { ProgressBar } from '@/app/_components/ui/ProgressBar'
 import { Badge } from '@/app/_components/ui/Badge'
+import { ActivityHeatmap } from '@/app/_components/game/ActivityHeatmap'
 import { calculateProgress } from '@/app/_lib/xp'
 import Link from 'next/link'
 import {
@@ -30,6 +31,7 @@ export default async function DashboardPage() {
     { data: stats },
     { data: recentQuests },
     { data: activityLog },
+    { data: fullActivityHistory },
     { count: totalCompletedCount },
     { data: bossData }
   ] = await Promise.all([
@@ -48,6 +50,12 @@ export default async function DashboardPage() {
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .limit(5),
+    supabase
+      .from('activity_log')
+      .select('created_at')
+      .eq('user_id', user.id)
+      .eq('action', 'QUEST_COMPLETED')
+      .gte('created_at', new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString()),
     supabase
       .from('quests')
       .select('*', { count: 'exact', head: true })
@@ -71,10 +79,10 @@ export default async function DashboardPage() {
       <BossHealthBar boss={bossData} />
 
       {/* Top Banner: Hero Overview */}
-      <div className="relative overflow-hidden rounded-2xl border border-amber-500/20 bg-gradient-to-r from-[var(--bg-secondary)] via-amber-950/10 to-[var(--bg-secondary)] p-6 sm:p-8 backdrop-blur-md">
+      <div className="relative overflow-hidden rounded-3xl border border-[var(--border-default)] bg-gradient-to-r from-[var(--bg-secondary)] to-[var(--bg-primary)] p-6 sm:p-8 shadow-[var(--shadow-card)]">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="flex items-center gap-5">
-            <div className="text-5xl sm:text-6xl p-3 bg-[var(--bg-primary)]/80 rounded-2xl border border-[var(--border-default)] shadow-inner">
+            <div className="text-5xl sm:text-6xl p-3 bg-[var(--bg-card)] rounded-2xl border border-[var(--border-default)] shadow-[var(--shadow-cyan)] animate-float">
               {profile.avatar_url || '🧙'}
             </div>
             <div>
@@ -85,7 +93,7 @@ export default async function DashboardPage() {
               <p className="text-sm text-muted mt-1">Ready for today's adventures? Keep your streak alive!</p>
               
               <div className="mt-3 flex items-center gap-4 text-xs">
-                <span className="flex items-center gap-1.5 text-amber-400 font-medium">
+                <span className="flex items-center gap-1.5 text-[var(--gold)] font-bold">
                   <Coins className="w-4 h-4" /> {profile.coins} Gold
                 </span>
                 <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
@@ -95,10 +103,10 @@ export default async function DashboardPage() {
             </div>
           </div>
 
-          <div className="w-full sm:w-64 bg-[var(--bg-card)]/80 p-4 rounded-xl border border-[var(--border-default)]">
-            <div className="flex justify-between text-xs mb-1.5 font-medium">
+          <div className="w-full sm:w-64 bg-[var(--bg-primary)] p-4 rounded-xl border border-[var(--border-default)]">
+            <div className="flex justify-between text-xs mb-1.5 font-bold">
               <span className="text-muted">Level Progress</span>
-              <span className="text-amber-400">{currentXP} / {xpForNextLevel} XP</span>
+              <span className="text-[var(--purple)]">{currentXP} / {xpForNextLevel} XP</span>
             </div>
             <ProgressBar progress={progress} />
             <p className="text-[11px] text-muted/80 text-right mt-1.5">
@@ -118,10 +126,10 @@ export default async function DashboardPage() {
           <Card glow>
             <CardHeader>
               <CardTitle>
-                <TrendingUp className="w-5 h-5 text-amber-400" />
+                <TrendingUp className="w-5 h-5 text-[var(--purple)]" />
                 Character Attributes
               </CardTitle>
-              <Link href="/character" className="text-xs text-amber-400 hover:underline flex items-center gap-1">
+              <Link href="/character" className="text-xs font-bold text-[var(--purple)] hover:underline flex items-center gap-1">
                 View Details <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </CardHeader>
@@ -130,11 +138,11 @@ export default async function DashboardPage() {
                 stats.map((stat) => (
                   <div
                     key={stat.id}
-                    className="box-hover p-3.5 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)]/50 flex flex-col justify-between cursor-pointer"
+                    className="box-hover p-3.5 border border-[var(--border-default)] bg-[var(--bg-primary)] flex flex-col justify-between cursor-pointer"
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-xl">{stat.icon}</span>
-                      <span className="text-xs font-bold text-amber-400">Lv.{stat.level}</span>
+                      <span className="text-xl glow-cyan">{stat.icon}</span>
+                      <span className="text-xs font-bold text-[var(--cyan)]">Lv.{stat.level}</span>
                     </div>
                     <div>
                       <p className="text-xs font-semibold">{stat.name}</p>
@@ -152,10 +160,10 @@ export default async function DashboardPage() {
           <Card>
             <CardHeader>
               <CardTitle>
-                <Scroll className="w-5 h-5 text-amber-400" />
+                <Scroll className="w-5 h-5 text-[var(--purple)]" />
                 Active Quests
               </CardTitle>
-              <Link href="/quests" className="text-xs text-amber-400 hover:underline flex items-center gap-1">
+              <Link href="/quests" className="text-xs font-bold text-[var(--purple)] hover:underline flex items-center gap-1">
                 All Quests <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </CardHeader>
@@ -164,15 +172,15 @@ export default async function DashboardPage() {
                 recentQuests.map((quest) => (
                   <div
                     key={quest.id}
-                    className="box-hover flex items-center justify-between p-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)]"
+                    className="box-hover flex items-center justify-between p-3 border border-[var(--border-default)] bg-[var(--bg-primary)] rounded-xl"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 rounded-full bg-amber-400" />
+                      <div className="w-2 h-2 rounded-full bg-[var(--purple)]" />
                       <div>
-                        <p className="text-sm font-medium">{quest.title}</p>
+                        <p className="text-sm font-bold text-[var(--text-primary)]">{quest.title}</p>
                         <p className="text-xs text-muted flex items-center gap-2 mt-0.5">
                           <span className="capitalize">{quest.type}</span> •
-                          <span className="text-amber-400 font-mono">+{quest.xp_reward} XP</span>
+                          <span className="text-[var(--purple)] font-bold">+{quest.xp_reward} XP</span>
                           {quest.streak > 0 && (
                             <span className="flex items-center text-orange-400 font-semibold text-[11px]">
                               <Flame className="w-3 h-3 mr-0.5" /> {quest.streak}
@@ -183,7 +191,7 @@ export default async function DashboardPage() {
                     </div>
                     <Link
                       href="/quests"
-                      className="px-3 py-1.5 rounded-md text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20 transition-colors"
+                      className="px-4 py-2 rounded-full text-xs font-bold bg-[var(--purple-bg)] text-[var(--purple)] border border-transparent hover:border-[var(--border-default)] transition-all"
                     >
                       Complete
                     </Link>
@@ -194,7 +202,7 @@ export default async function DashboardPage() {
                   <p className="text-sm">No active quests right now!</p>
                   <Link
                     href="/quests"
-                    className="inline-block mt-2 text-xs font-semibold text-amber-400 hover:underline"
+                    className="inline-block mt-2 text-xs font-bold text-[var(--purple)] hover:underline"
                   >
                     + Create your first quest
                   </Link>
@@ -204,42 +212,42 @@ export default async function DashboardPage() {
           </Card>
         </div>
 
-        {/* Right 1 Col: Quick Actions & Activity Feed */}
+        {/* Right 1 Col: Quick Actions, AI & Activity Feed */}
         <div className="space-y-6">
           
           {/* Quick Shortcuts */}
           <Card>
             <CardHeader>
               <CardTitle>
-                <Award className="w-5 h-5 text-amber-400" />
+                <Award className="w-5 h-5 text-[var(--purple)]" />
                 Quick Actions
               </CardTitle>
             </CardHeader>
             <div className="flex flex-col gap-2.5">
               <Link
                 href="/quests"
-                className="box-hover flex items-center justify-between p-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)] text-sm font-medium"
+                className="box-hover flex items-center justify-between p-3.5 border border-transparent bg-[var(--bg-primary)] hover:border-[var(--border-default)] text-sm font-semibold rounded-xl"
               >
                 <span>⚔️ Go to Quest Board</span>
                 <ArrowRight className="w-4 h-4 text-muted" />
               </Link>
               <Link
                 href="/leaderboard"
-                className="box-hover flex items-center justify-between p-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)] text-sm font-medium"
+                className="box-hover flex items-center justify-between p-3.5 border border-transparent bg-[var(--bg-primary)] hover:border-[var(--border-default)] text-sm font-semibold rounded-xl"
               >
                 <span>👑 View Leaderboard</span>
                 <ArrowRight className="w-4 h-4 text-muted" />
               </Link>
               <Link
                 href="/shop"
-                className="box-hover flex items-center justify-between p-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)] text-sm font-medium"
+                className="box-hover flex items-center justify-between p-3.5 border border-transparent bg-[var(--bg-primary)] hover:border-[var(--border-default)] text-sm font-semibold rounded-xl"
               >
                 <span>🛒 Visit Rewards Market</span>
                 <ArrowRight className="w-4 h-4 text-muted" />
               </Link>
               <Link
                 href="/achievements"
-                className="box-hover flex items-center justify-between p-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)] text-sm font-medium"
+                className="box-hover flex items-center justify-between p-3.5 border border-transparent bg-[var(--bg-primary)] hover:border-[var(--border-default)] text-sm font-semibold rounded-xl"
               >
                 <span>🏆 Check Achievements</span>
                 <ArrowRight className="w-4 h-4 text-muted" />
@@ -247,11 +255,22 @@ export default async function DashboardPage() {
             </div>
           </Card>
 
+          {/* Activity Heatmap */}
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <TrendingUp className="w-5 h-5 text-[var(--purple)]" />
+                Consistency Map
+              </CardTitle>
+            </CardHeader>
+            <ActivityHeatmap activities={fullActivityHistory || []} />
+          </Card>
+
           {/* Recent Activity Log */}
           <Card>
             <CardHeader>
               <CardTitle>
-                <History className="w-5 h-5 text-amber-400" />
+                <History className="w-5 h-5 text-[var(--purple)]" />
                 Recent History
               </CardTitle>
             </CardHeader>

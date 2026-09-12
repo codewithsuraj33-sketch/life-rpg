@@ -16,6 +16,8 @@
   --gold-glow: rgba(245, 158, 11, 0.4);
   --purple: #a855f7; /* Vibrant Purple */
   --purple-glow: rgba(168, 85, 247, 0.4);
+  --purple-bg: rgba(168, 85, 247, 0.1);
+  --purple-light: #c084fc;
   --cyan: #06b6d4; /* Neon Cyan */
   --cyan-glow: rgba(6, 182, 212, 0.4);
   --emerald: #10b981;
@@ -41,6 +43,7 @@
   --shadow-gold: 0 0 20px rgba(245, 158, 11, 0.2), 0 0 40px rgba(245, 158, 11, 0.1);
   --shadow-cyan: 0 0 20px rgba(6, 182, 212, 0.2), 0 0 40px rgba(6, 182, 212, 0.1);
   --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-purple: 0 0 20px rgba(168, 85, 247, 0.2), 0 0 40px rgba(168, 85, 247, 0.1);
 
   /* Fonts */
   --font-sans: var(--font-outfit), system-ui, -apple-system, sans-serif;
@@ -292,3 +295,56 @@ a, button, input, select, textarea {
 .text-purple { color: var(--purple); }
 .text-muted { color: var(--text-secondary); }
 .text-dim { color: var(--text-muted); }
+
+/* ============================================
+   Form Inputs
+   ============================================ */
+
+.input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border-default);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-family: var(--font-sans);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.input:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px var(--purple-bg);
+}
+
+/* ============================================
+   Mobile Slide-In Animation
+   ============================================ */
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ============================================
+   Hide Scrollbar Utility
+   ============================================ */
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+

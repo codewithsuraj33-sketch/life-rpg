@@ -100,22 +100,9 @@ export function QuestCard({ quest, stats = [] }: QuestCardProps) {
 
   return (
     <>
-      <div className="relative group rounded-xl border border-[var(--border-default)] bg-[var(--bg-card)] p-4 sm:p-5 backdrop-blur-sm transition-all hover:border-amber-500/30">
+      <div className="relative group rounded-xl border border-[var(--border-default)] bg-[var(--bg-card)] p-4 sm:p-5 backdrop-blur-sm transition-all hover:border-[var(--border-hover)] shadow-[var(--shadow-card)]">
         <div className="flex items-start justify-between gap-4">
-          {/* Left Side: Complete / Fail Checkbox */}
-          <button
-            onClick={handleComplete}
-            disabled={loading || quest.completed}
-            className={`mt-1 flex-shrink-0 w-7 h-7 rounded-lg border flex items-center justify-center transition-all cursor-pointer ${
-              quest.completed
-                ? 'bg-emerald-500 border-emerald-500 text-black'
-                : quest.is_negative
-                ? 'border-rose-500/50 hover:border-rose-500 hover:bg-rose-500/20 text-rose-500/50 hover:text-rose-500'
-                : 'border-[var(--border-default)] hover:border-amber-500 hover:bg-amber-500/10 text-transparent hover:text-amber-400'
-            }`}
-          >
-            {quest.is_negative ? <Skull className="w-4 h-4" /> : <Check className="w-4 h-4" />}
-          </button>
+          {/* Left Side removed - Checkbox is gone */}
 
           {/* Middle: Content */}
           <div className="flex-1 min-w-0">
@@ -176,21 +163,31 @@ export function QuestCard({ quest, stats = [] }: QuestCardProps) {
             </div>
           </div>
 
-          {/* Right side: Actions (Edit & Delete) */}
-          <div className="flex items-center gap-1 sm:opacity-0 group-hover:opacity-100 transition-all flex-shrink-0">
+          {/* Right side: Actions (Edit, Delete, Complete) */}
+          <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2 flex-shrink-0">
             {!quest.completed && (
-              <button
-                onClick={() => setIsEditOpen(true)}
-                className="text-muted hover:text-amber-400 transition-all p-1.5 cursor-pointer rounded-lg hover:bg-[var(--bg-secondary)]"
-                title="Edit quest"
-                aria-label="Edit quest"
-              >
-                <Edit2 className="w-4 h-4" />
-              </button>
+              <>
+                <button
+                  onClick={handleComplete}
+                  disabled={loading}
+                  className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--purple-bg)] text-[var(--purple)] border border-[var(--border-default)] hover:border-[var(--purple)] hover:shadow-[var(--shadow-purple)] transition-all flex items-center gap-1 cursor-pointer"
+                  title="Complete Quest"
+                >
+                  <Check className="w-3.5 h-3.5" /> Complete
+                </button>
+                <button
+                  onClick={() => setIsEditOpen(true)}
+                  className="text-muted hover:text-amber-400 transition-all p-1.5 cursor-pointer rounded-lg hover:bg-[var(--bg-secondary)] border border-transparent hover:border-[var(--border-default)]"
+                  title="Edit quest"
+                  aria-label="Edit quest"
+                >
+                  <Edit2 className="w-4 h-4" />
+                </button>
+              </>
             )}
             <button
               onClick={handleDelete}
-              className="text-muted hover:text-rose-400 transition-all p-1.5 cursor-pointer rounded-lg hover:bg-[var(--bg-secondary)]"
+              className="text-muted hover:text-rose-400 transition-all p-1.5 cursor-pointer rounded-lg hover:bg-[var(--bg-secondary)] border border-transparent hover:border-[var(--border-default)]"
               title="Abandon quest"
               aria-label="Abandon quest"
             >

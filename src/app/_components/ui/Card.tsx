@@ -9,8 +9,8 @@ export function Card({ className, glow = false, children, ...props }: CardProps)
   return (
     <div
       className={cn(
-        'rounded-xl border border-[var(--border-default)] bg-[var(--bg-card)] p-5 backdrop-blur-sm transition-all',
-        glow && 'border-gold/30 shadow-[0_0_15px_rgba(245,158,11,0.15)]',
+        'card p-5 transition-all',
+        glow && 'border-[var(--gold)] shadow-[var(--shadow-gold)]',
         className
       )}
       {...props}

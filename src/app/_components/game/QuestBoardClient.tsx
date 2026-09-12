@@ -55,8 +55,8 @@ export function QuestBoardClient({
             onClick={() => setFilter('all')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all cursor-pointer flex-shrink-0 ${
               filter === 'all'
-                ? 'bg-amber-500 text-black shadow-sm'
-                : 'text-muted hover:text-white'
+                ? 'bg-[var(--purple)] text-white shadow-sm'
+                : 'text-muted hover:text-[var(--text-primary)]'
             }`}
           >
             All Active ({activeCount})
@@ -65,8 +65,8 @@ export function QuestBoardClient({
             onClick={() => setFilter('daily')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all cursor-pointer flex-shrink-0 ${
               filter === 'daily'
-                ? 'bg-amber-500 text-black shadow-sm'
-                : 'text-muted hover:text-white'
+                ? 'bg-[var(--purple)] text-white shadow-sm'
+                : 'text-muted hover:text-[var(--text-primary)]'
             }`}
           >
             Dailies
@@ -75,8 +75,8 @@ export function QuestBoardClient({
             onClick={() => setFilter('habit')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all cursor-pointer flex-shrink-0 ${
               filter === 'habit'
-                ? 'bg-amber-500 text-black shadow-sm'
-                : 'text-muted hover:text-white'
+                ? 'bg-[var(--purple)] text-white shadow-sm'
+                : 'text-muted hover:text-[var(--text-primary)]'
             }`}
           >
             Habits
@@ -85,8 +85,8 @@ export function QuestBoardClient({
             onClick={() => setFilter('todo')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all cursor-pointer flex-shrink-0 ${
               filter === 'todo'
-                ? 'bg-amber-500 text-black shadow-sm'
-                : 'text-muted hover:text-white'
+                ? 'bg-[var(--purple)] text-white shadow-sm'
+                : 'text-muted hover:text-[var(--text-primary)]'
             }`}
           >
             To-Dos
@@ -95,8 +95,8 @@ export function QuestBoardClient({
             onClick={() => setFilter('completed')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all cursor-pointer flex-shrink-0 ${
               filter === 'completed'
-                ? 'bg-amber-500 text-black shadow-sm'
-                : 'text-muted hover:text-white'
+                ? 'bg-[var(--purple)] text-white shadow-sm'
+                : 'text-muted hover:text-[var(--text-primary)]'
             }`}
           >
             Completed ({completedCount})
