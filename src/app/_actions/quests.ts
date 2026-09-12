@@ -71,7 +71,7 @@ export async function completeQuest(questId: string) {
   const newStreak = quest.streak + 1
   const bestStreak = Math.max(quest.best_streak, newStreak)
   const multiplier = getStreakMultiplier(newStreak)
-  const xpEarned = Math.round(quest.xp_reward * multiplier)
+  let xpEarned = Math.round(quest.xp_reward * multiplier)
   const coinsEarned = Math.round(quest.coin_reward * multiplier)
 
   // Get current profile
@@ -82,6 +82,29 @@ export async function completeQuest(questId: string) {
     .single()
 
   if (!profile) return { error: 'Profile not found' }
+
+  // Fetch stat to apply class multipliers
+  let fetchedStat = null
+  if (quest.stat_id) {
+    const { data: stat } = await supabase
+      .from('stats')
+      .select('*')
+      .eq('id', quest.stat_id)
+      .single()
+    fetchedStat = stat
+  }
+
+  // Class Multipliers
+  if (profile.class_type && fetchedStat) {
+    const statName = fetchedStat.name.toLowerCase()
+    if (profile.class_type === 'Warrior' && (statName.includes('health') || statName.includes('fitness') || statName.includes('strength'))) {
+      xpEarned = Math.round(xpEarned * 1.5)
+    } else if (profile.class_type === 'Mage' && (statName.includes('intellect') || statName.includes('career') || statName.includes('study'))) {
+      xpEarned = Math.round(xpEarned * 1.5)
+    } else if (profile.class_type === 'Rogue' && (statName.includes('social') || statName.includes('fun') || statName.includes('charisma'))) {
+      xpEarned = Math.round(xpEarned * 1.5)
+    }
+  }
 
   const newXP = profile.xp + xpEarned
   const newCoins = profile.coins + coinsEarned
@@ -116,21 +139,28 @@ export async function completeQuest(questId: string) {
     .eq('id', user.id)
 
   // Update stat XP if linked
-  if (quest.stat_id) {
-    const { data: stat } = await supabase
+  if (fetchedStat) {
+    const newStatXP = fetchedStat.xp + xpEarned
+    const newStatLevel = calculateLevel(newStatXP)
+    await supabase
       .from('stats')
-      .select('*')
+      .update({ xp: newStatXP, level: newStatLevel })
       .eq('id', quest.stat_id)
-      .single()
+  }
 
-    if (stat) {
-      const newStatXP = stat.xp + xpEarned
-      const newStatLevel = calculateLevel(newStatXP)
-      await supabase
-        .from('stats')
-        .update({ xp: newStatXP, level: newStatLevel })
-        .eq('id', quest.stat_id)
-    }
+  // Damage the active Boss
+  const { data: boss } = await supabase
+    .from('bosses')
+    .select('*')
+    .eq('is_active', true)
+    .single()
+
+  if (boss && boss.current_hp > 0) {
+    const newBossHp = Math.max(0, boss.current_hp - 1)
+    await supabase
+      .from('bosses')
+      .update({ current_hp: newBossHp })
+      .eq('id', boss.id)
   }
 
   // Log activity

@@ -1,5 +1,8 @@
 import { createClient } from '@/app/_lib/supabase/server'
 import { Card, CardHeader, CardTitle } from '@/app/_components/ui/Card'
+import { BossHealthBar } from '@/app/_components/game/BossHealthBar'
+import { DailyRewardModal } from '@/app/_components/game/DailyRewardModal'
+import { ClassSelectionModal } from '@/app/_components/game/ClassSelectionModal'
 import { ProgressBar } from '@/app/_components/ui/ProgressBar'
 import { Badge } from '@/app/_components/ui/Badge'
 import { calculateProgress } from '@/app/_lib/xp'
@@ -27,7 +30,8 @@ export default async function DashboardPage() {
     { data: stats },
     { data: recentQuests },
     { data: activityLog },
-    { count: totalCompletedCount }
+    { count: totalCompletedCount },
+    { data: bossData }
   ] = await Promise.all([
     supabase.from('profiles').select('*').eq('id', user.id).single(),
     supabase.from('stats').select('*').eq('user_id', user.id).order('name'),
@@ -49,6 +53,11 @@ export default async function DashboardPage() {
       .select('*', { count: 'exact', head: true })
       .eq('user_id', user.id)
       .eq('completed', true),
+    supabase
+      .from('bosses')
+      .select('*')
+      .eq('is_active', true)
+      .maybeSingle()
   ])
 
   if (!profile) return null
@@ -57,6 +66,10 @@ export default async function DashboardPage() {
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
+      <DailyRewardModal lastLoginDate={profile.last_login_date} />
+      <ClassSelectionModal currentClass={profile.class_type} />
+      <BossHealthBar boss={bossData} />
+
       {/* Top Banner: Hero Overview */}
       <div className="relative overflow-hidden rounded-2xl border border-amber-500/20 bg-gradient-to-r from-[var(--bg-secondary)] via-amber-950/10 to-[var(--bg-secondary)] p-6 sm:p-8 backdrop-blur-md">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">

@@ -8,6 +8,7 @@ import { Check, Flame, Trash2, Coins, Sparkles, Edit2 } from 'lucide-react'
 import confetti from 'canvas-confetti'
 import { EditQuestModal } from './EditQuestModal'
 import { LevelUpModal } from './LevelUpModal'
+import { playSound } from '@/app/_lib/sound'
 
 interface Stat {
   id: string
@@ -58,14 +59,18 @@ export function QuestCard({ quest, stats = [] }: QuestCardProps) {
 
         // Trigger level up modal if user leveled up
         if (res.leveledUp) {
+          playSound('levelup')
           setLevelUpData({
             newLevel: res.newLevel,
             newTitle: res.newTitle,
           })
+        } else {
+          playSound('sword')
         }
 
         // Show achievement toast if unlocked
         if (res.unlockedAchievements && res.unlockedAchievements.length > 0) {
+          playSound('reward')
           const achNames = res.unlockedAchievements.map((a: any) => `${a.icon} ${a.name}`).join(', ')
           setUnlockedNotice(`🏆 Achievement Unlocked: ${achNames}!`)
           setTimeout(() => setUnlockedNotice(null), 5000)
