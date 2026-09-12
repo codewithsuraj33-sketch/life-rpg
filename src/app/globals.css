@@ -109,6 +109,20 @@ a, button, input, select, textarea {
   transform: translateY(-2px);
 }
 
+/* Generic Hoverable Box */
+.box-hover {
+  transition-property: transform, border-color, box-shadow, background-color;
+  transition-duration: 0.15s;
+  transition-timing-function: ease-out;
+}
+
+.box-hover:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+  transform: translateY(-2px);
+  background-color: rgba(25, 25, 55, 0.9);
+}
+
 /* ============================================
    Gold Glow Button
    ============================================ */

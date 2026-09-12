@@ -130,7 +130,7 @@ export default async function DashboardPage() {
                 stats.map((stat) => (
                   <div
                     key={stat.id}
-                    className="p-3.5 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)]/50 flex flex-col justify-between"
+                    className="box-hover p-3.5 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)]/50 flex flex-col justify-between cursor-pointer"
                   >
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xl">{stat.icon}</span>
@@ -164,7 +164,7 @@ export default async function DashboardPage() {
                 recentQuests.map((quest) => (
                   <div
                     key={quest.id}
-                    className="flex items-center justify-between p-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)] hover:border-amber-500/30 transition-all"
+                    className="box-hover flex items-center justify-between p-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)]"
                   >
                     <div className="flex items-center gap-3">
                       <div className="w-2 h-2 rounded-full bg-amber-400" />
@@ -218,28 +218,28 @@ export default async function DashboardPage() {
             <div className="flex flex-col gap-2.5">
               <Link
                 href="/quests"
-                className="flex items-center justify-between p-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)] hover:bg-amber-500/10 hover:border-amber-500/30 transition-all text-sm font-medium"
+                className="box-hover flex items-center justify-between p-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)] text-sm font-medium"
               >
                 <span>⚔️ Go to Quest Board</span>
                 <ArrowRight className="w-4 h-4 text-muted" />
               </Link>
               <Link
                 href="/leaderboard"
-                className="flex items-center justify-between p-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)] hover:bg-amber-500/10 hover:border-amber-500/30 transition-all text-sm font-medium"
+                className="box-hover flex items-center justify-between p-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)] text-sm font-medium"
               >
                 <span>👑 View Leaderboard</span>
                 <ArrowRight className="w-4 h-4 text-muted" />
               </Link>
               <Link
                 href="/shop"
-                className="flex items-center justify-between p-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)] hover:bg-amber-500/10 hover:border-amber-500/30 transition-all text-sm font-medium"
+                className="box-hover flex items-center justify-between p-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)] text-sm font-medium"
               >
                 <span>🛒 Visit Rewards Market</span>
                 <ArrowRight className="w-4 h-4 text-muted" />
               </Link>
               <Link
                 href="/achievements"
-                className="flex items-center justify-between p-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)] hover:bg-amber-500/10 hover:border-amber-500/30 transition-all text-sm font-medium"
+                className="box-hover flex items-center justify-between p-3 rounded-lg border border-[var(--border-default)] bg-[var(--bg-secondary)] text-sm font-medium"
               >
                 <span>🏆 Check Achievements</span>
                 <ArrowRight className="w-4 h-4 text-muted" />
