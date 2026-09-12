@@ -15,6 +15,7 @@ export function CreateQuestModal({ stats }: { stats: Stat[] }) {
   const [isOpen, setIsOpen] = useState(false)
   const [difficulty, setDifficulty] = useState<string>('medium')
   const [type, setType] = useState<string>('todo')
+  const [isNegative, setIsNegative] = useState<boolean>(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -119,6 +120,22 @@ export function CreateQuestModal({ stats }: { stats: Stat[] }) {
                 </div>
               </div>
 
+              {/* Is Negative (Bad Habit) */}
+              <div className="flex items-center gap-2 mt-2">
+                <input
+                  type="checkbox"
+                  id="is_negative"
+                  name="is_negative"
+                  value="true"
+                  checked={isNegative}
+                  onChange={(e) => setIsNegative(e.target.checked)}
+                  className="w-4 h-4 rounded bg-[var(--bg-primary)] border-[var(--border-default)] accent-crimson cursor-pointer"
+                />
+                <label htmlFor="is_negative" className="text-xs font-semibold text-rose-400 cursor-pointer select-none">
+                  This is a "Bad Habit" (Completing this will deal DMG to you!)
+                </label>
+              </div>
+
               {/* Link to Stat Attribute */}
               <div>
                 <label className="block text-xs font-semibold text-muted mb-1">Character Attribute</label>
@@ -136,10 +153,10 @@ export function CreateQuestModal({ stats }: { stats: Stat[] }) {
               </div>
 
               {/* Reward preview banner */}
-              <div className="flex items-center justify-between p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs">
-                <span className="text-muted">Estimated Rewards:</span>
-                <span className="font-semibold text-amber-400">
-                  +{DIFFICULTY_XP[difficulty] || 30} XP • +{DIFFICULTY_COINS[difficulty] || 10} Coins
+              <div className={`flex items-center justify-between p-3 rounded-lg border text-xs ${isNegative ? 'bg-rose-500/10 border-rose-500/20' : 'bg-amber-500/10 border-amber-500/20'}`}>
+                <span className="text-muted">{isNegative ? 'Estimated Penalty:' : 'Estimated Rewards:'}</span>
+                <span className={`font-semibold ${isNegative ? 'text-rose-400' : 'text-amber-400'}`}>
+                  {isNegative ? `-${[10, 20, 30, 50][['easy','medium','hard','legendary'].indexOf(difficulty) || 1]} HP` : `+${DIFFICULTY_XP[difficulty] || 30} XP • +${DIFFICULTY_COINS[difficulty] || 10} Coins`}
                 </span>
               </div>
 

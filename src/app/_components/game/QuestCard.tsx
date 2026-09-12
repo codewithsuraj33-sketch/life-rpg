@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { completeQuest, deleteQuest } from '@/app/_actions/quests'
 import { Badge } from '@/app/_components/ui/Badge'
 import { DIFFICULTY_INFO } from '@/app/_lib/constants'
-import { Check, Flame, Trash2, Coins, Sparkles, Edit2 } from 'lucide-react'
+import { Check, Flame, Trash2, Coins, Sparkles, Edit2, Skull } from 'lucide-react'
 import confetti from 'canvas-confetti'
 import { EditQuestModal } from './EditQuestModal'
 import { LevelUpModal } from './LevelUpModal'
@@ -27,6 +27,7 @@ interface QuestCardProps {
     coin_reward: number
     streak: number
     completed: boolean
+    is_negative?: boolean
     stat_id?: string | null
     stat?: {
       name: string
@@ -75,6 +76,14 @@ export function QuestCard({ quest, stats = [] }: QuestCardProps) {
           setUnlockedNotice(`🏆 Achievement Unlocked: ${achNames}!`)
           setTimeout(() => setUnlockedNotice(null), 5000)
         }
+
+        if (res.isNegative) {
+          // Shake screen and play damage sound
+          document.body.classList.add('animate-shake')
+          setTimeout(() => {
+            document.body.classList.remove('animate-shake')
+          }, 500)
+        }
       }
     } catch (e) {
       console.error(e)
@@ -93,17 +102,19 @@ export function QuestCard({ quest, stats = [] }: QuestCardProps) {
     <>
       <div className="relative group rounded-xl border border-[var(--border-default)] bg-[var(--bg-card)] p-4 sm:p-5 backdrop-blur-sm transition-all hover:border-amber-500/30">
         <div className="flex items-start justify-between gap-4">
-          {/* Left Side: Complete Checkbox */}
+          {/* Left Side: Complete / Fail Checkbox */}
           <button
             onClick={handleComplete}
             disabled={loading || quest.completed}
-            className={`mt-1 flex-shrink-0 w-6 h-6 rounded-lg border flex items-center justify-center transition-all cursor-pointer ${
+            className={`mt-1 flex-shrink-0 w-7 h-7 rounded-lg border flex items-center justify-center transition-all cursor-pointer ${
               quest.completed
                 ? 'bg-emerald-500 border-emerald-500 text-black'
+                : quest.is_negative
+                ? 'border-rose-500/50 hover:border-rose-500 hover:bg-rose-500/20 text-rose-500/50 hover:text-rose-500'
                 : 'border-[var(--border-default)] hover:border-amber-500 hover:bg-amber-500/10 text-transparent hover:text-amber-400'
             }`}
           >
-            <Check className="w-4 h-4" />
+            {quest.is_negative ? <Skull className="w-4 h-4" /> : <Check className="w-4 h-4" />}
           </button>
 
           {/* Middle: Content */}
@@ -141,13 +152,21 @@ export function QuestCard({ quest, stats = [] }: QuestCardProps) {
                 {diffInfo.emoji} {diffInfo.label}
               </span>
 
-              <span className="text-amber-400 font-medium flex items-center gap-1 font-mono">
-                <Sparkles className="w-3 h-3" /> +{quest.xp_reward} XP
-              </span>
+              {quest.is_negative ? (
+                <span className="text-rose-400 font-medium flex items-center gap-1 font-mono">
+                  <Skull className="w-3 h-3" /> -{[10, 20, 30, 50][['easy','medium','hard','legendary'].indexOf(quest.difficulty) || 1]} HP
+                </span>
+              ) : (
+                <>
+                  <span className="text-amber-400 font-medium flex items-center gap-1 font-mono">
+                    <Sparkles className="w-3 h-3" /> +{quest.xp_reward} XP
+                  </span>
 
-              <span className="text-amber-300 font-medium flex items-center gap-1 font-mono">
-                <Coins className="w-3 h-3" /> +{quest.coin_reward}
-              </span>
+                  <span className="text-amber-300 font-medium flex items-center gap-1 font-mono">
+                    <Coins className="w-3 h-3" /> +{quest.coin_reward}
+                  </span>
+                </>
+              )}
 
               {quest.streak > 0 && (
                 <span className="text-orange-400 font-medium flex items-center gap-1 font-semibold">

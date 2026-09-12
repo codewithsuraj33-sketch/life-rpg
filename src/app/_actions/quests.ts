@@ -17,6 +17,7 @@ export async function createQuest(formData: FormData) {
   const type = formData.get('type') as string || 'todo'
   const difficulty = formData.get('difficulty') as string || 'medium'
   const statId = formData.get('stat_id') as string | null
+  const isNegative = formData.get('is_negative') === 'true'
 
   const trimmedTitle = title ? title.trim() : ''
   if (!trimmedTitle || trimmedTitle.length === 0) {
@@ -42,6 +43,7 @@ export async function createQuest(formData: FormData) {
     xp_reward: xpReward,
     coin_reward: coinReward,
     stat_id: statId || null,
+    is_negative: isNegative,
   })
 
   if (error) return { error: error.message }
@@ -82,6 +84,48 @@ export async function completeQuest(questId: string) {
     .single()
 
   if (!profile) return { error: 'Profile not found' }
+
+  // Handle Negative Quests (Bad Habits)
+  if (quest.is_negative) {
+    // Take damage instead of gaining XP
+    const damageMap: Record<string, number> = { easy: 10, medium: 20, hard: 30, legendary: 50 }
+    const damage = damageMap[quest.difficulty] || 20
+    
+    let newHp = Math.max(0, (profile.current_hp || 100) - damage)
+    let coinsLost = 0
+    let actionLog = `Gave in to bad habit: ${quest.title} (Took ${damage} DMG)`
+    
+    if (newHp === 0) {
+      // Penalty: Reset to 100 HP, lose 100 coins
+      newHp = profile.max_hp || 100
+      coinsLost = 100
+      actionLog = `HP reached 0! Respawned but lost ${coinsLost} coins.`
+    }
+
+    await supabase.from('profiles').update({
+      current_hp: newHp,
+      coins: Math.max(0, profile.coins - coinsLost)
+    }).eq('id', user.id)
+    
+    // Log activity
+    await supabase.from('activity_log').insert({
+      user_id: user.id,
+      action: actionLog,
+      xp_gained: 0,
+      coins_gained: -coinsLost,
+    })
+
+    // Reset quest state (bad habits are repeatable)
+    await supabase.from('quests').update({
+      completed: false,
+      streak: 0
+    }).eq('id', questId)
+
+    revalidatePath('/quests')
+    revalidatePath('/dashboard')
+    
+    return { success: true, isNegative: true, damageTaken: damage, coinsLost }
+  }
 
   // Fetch stat to apply class multipliers
   let fetchedStat = null

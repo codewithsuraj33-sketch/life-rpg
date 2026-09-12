@@ -26,6 +26,8 @@ interface Profile {
   xp: number
   coins: number
   title: string
+  current_hp?: number
+  max_hp?: number
 }
 
 const navItems = [
@@ -54,21 +56,26 @@ export function TopBar({ profile }: { profile: Profile }) {
           <Menu className="w-5 h-5" />
         </button>
 
-        {/* XP Bar */}
-        <div className="flex-1 max-w-xs sm:max-w-md mx-1 sm:mx-4 min-w-0">
-          <div className="flex items-center justify-between text-[11px] sm:text-xs mb-1">
-            <span className="text-gold font-semibold truncate max-w-[110px] sm:max-w-none">
-              Lv.{profile.level} <span className="hidden xs:inline">{profile.title}</span>
-            </span>
-            <span className="text-muted font-mono text-[10px] sm:text-xs">
-              {currentXP}/{xpForNextLevel}
-            </span>
+        {/* Status Bars (HP & XP) */}
+        <div className="flex-1 max-w-xs sm:max-w-md mx-1 sm:mx-4 min-w-0 flex flex-col justify-center">
+          <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-bold">
+            <span className="text-crimson">HP {profile.current_hp ?? 100}/{profile.max_hp ?? 100}</span>
+            <span className="text-gold">Lv.{profile.level} {profile.title}</span>
           </div>
-          <div className="xp-bar h-2 sm:h-2.5">
+          <div className="stat-bar bg-rose-950/30 h-1.5 sm:h-2 mt-0.5 mb-1">
+            <div
+              className="stat-bar-fill bg-crimson"
+              style={{ width: `${Math.max(0, ((profile.current_hp ?? 100) / (profile.max_hp ?? 100)) * 100)}%` }}
+            />
+          </div>
+          <div className="xp-bar h-1.5 sm:h-2">
             <div
               className="xp-bar-fill"
               style={{ width: `${progress * 100}%` }}
             />
+          </div>
+          <div className="text-right text-muted font-mono text-[9px] sm:text-[10px] mt-0.5">
+            {currentXP}/{xpForNextLevel} XP
           </div>
         </div>
 
