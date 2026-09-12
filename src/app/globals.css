@@ -109,9 +109,14 @@ a, button, input, select, textarea {
   transform: translateY(-2px);
 }
 
+.card:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
 /* Generic Hoverable Box */
 .box-hover {
-  transition-property: transform, border-color, box-shadow, background-color;
+  transition-property: transform, border-color, box-shadow, background-color, opacity;
   transition-duration: 0.15s;
   transition-timing-function: ease-out;
 }
@@ -121,6 +126,12 @@ a, button, input, select, textarea {
   box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
   transform: translateY(-2px);
   background-color: rgba(25, 25, 55, 0.9);
+}
+
+.box-hover:active {
+  transform: scale(0.98);
+  opacity: 0.8;
+  background-color: rgba(35, 35, 75, 0.9);
 }
 
 /* ============================================
@@ -149,7 +160,8 @@ a, button, input, select, textarea {
 }
 
 .btn-primary:active {
-  transform: translateY(0);
+  transform: scale(0.96);
+  filter: brightness(0.9);
 }
 
 .btn-secondary {
@@ -172,6 +184,11 @@ a, button, input, select, textarea {
   background: rgba(139, 92, 246, 0.1);
 }
 
+.btn-secondary:active {
+  transform: scale(0.96);
+  background: rgba(139, 92, 246, 0.2);
+}
+
 .btn-danger {
   background: transparent;
   color: var(--crimson);
@@ -189,6 +206,11 @@ a, button, input, select, textarea {
 .btn-danger:hover {
   background: rgba(239, 68, 68, 0.1);
   border-color: var(--crimson);
+}
+
+.btn-danger:active {
+  transform: scale(0.96);
+  background: rgba(239, 68, 68, 0.2);
 }
 
 /* ============================================
