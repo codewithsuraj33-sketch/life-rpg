@@ -101,7 +101,7 @@ export default async function LeaderboardPage({
       {topPlayers && topPlayers.length >= 3 && (
         <div className="grid grid-cols-3 gap-2 sm:gap-6 pt-4 sm:pt-6 pb-2 items-end">
           {/* Rank 2 */}
-          <div className="flex flex-col items-center p-2.5 sm:p-4 rounded-xl border border-slate-400/20 bg-[var(--bg-card)] text-center relative order-1">
+          <div className="box-hover flex flex-col items-center p-2.5 sm:p-4 rounded-xl border border-slate-400/20 bg-[var(--bg-card)] text-center relative order-1">
             <span className="text-xl sm:text-2xl mb-1">🥈</span>
             <div className="text-2xl sm:text-4xl p-1.5 sm:p-2 rounded-xl sm:rounded-2xl bg-[var(--bg-primary)] border border-slate-400/30 mb-1.5 sm:mb-2">
               {topPlayers[1].avatar_url || '🧙'}
@@ -112,7 +112,7 @@ export default async function LeaderboardPage({
           </div>
 
           {/* Rank 1 (Tallest / Gold Glow) */}
-          <div className="flex flex-col items-center p-3 sm:p-5 rounded-xl sm:rounded-2xl border-2 border-amber-500/50 bg-gradient-to-b from-amber-500/10 to-[var(--bg-card)] text-center relative order-2 shadow-[0_0_20px_rgba(245,158,11,0.2)] -translate-y-2">
+          <div className="box-hover flex flex-col items-center p-3 sm:p-5 rounded-xl sm:rounded-2xl border-2 border-amber-500/50 bg-gradient-to-b from-amber-500/10 to-[var(--bg-card)] text-center relative order-2 shadow-[0_0_20px_rgba(245,158,11,0.2)] -translate-y-2 hover:-translate-y-4 transition-transform">
             <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-amber-400 mb-1" />
             <div className="text-3xl sm:text-5xl p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-[var(--bg-primary)] border-2 border-amber-400 mb-1.5 sm:mb-2">
               {topPlayers[0].avatar_url || '🧙'}
@@ -124,7 +124,7 @@ export default async function LeaderboardPage({
           </div>
 
           {/* Rank 3 */}
-          <div className="flex flex-col items-center p-2.5 sm:p-4 rounded-xl border border-amber-700/20 bg-[var(--bg-card)] text-center relative order-3">
+          <div className="box-hover flex flex-col items-center p-2.5 sm:p-4 rounded-xl border border-amber-700/20 bg-[var(--bg-card)] text-center relative order-3">
             <span className="text-xl sm:text-2xl mb-1">🥉</span>
             <div className="text-2xl sm:text-4xl p-1.5 sm:p-2 rounded-xl sm:rounded-2xl bg-[var(--bg-primary)] border border-amber-700/30 mb-1.5 sm:mb-2">
               {topPlayers[2].avatar_url || '🧙'}
