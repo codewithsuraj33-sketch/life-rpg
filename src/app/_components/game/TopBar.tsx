@@ -49,7 +49,7 @@ export function TopBar({ profile }: { profile: Profile }) {
       <header className="flex items-center justify-between px-4 sm:px-8 py-3 border-b border-[var(--border-default)] bg-[var(--bg-secondary)]/90 backdrop-blur-xl gap-3 sm:gap-6 sticky top-0 z-30">
         {/* Mobile menu button */}
         <button
-          className="md:hidden p-2 -ml-1 text-[var(--text-secondary)] hover:text-white transition-colors cursor-pointer rounded-xl hover:bg-white/5"
+          className="md:hidden p-2 -ml-1 text-[var(--text-secondary)] hover:text-white transition-all duration-100 cursor-pointer rounded-xl hover:bg-white/5 active:scale-90 active:bg-white/10"
           onClick={() => setMobileMenuOpen(true)}
           aria-label="Open navigation menu"
         >
@@ -142,7 +142,7 @@ export function TopBar({ profile }: { profile: Profile }) {
                 </div>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-1 rounded-lg text-[var(--text-muted)] hover:text-white"
+                  className="p-1.5 rounded-lg text-[var(--text-muted)] hover:text-white active:scale-90 transition-all duration-100"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -174,7 +174,7 @@ export function TopBar({ profile }: { profile: Profile }) {
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
                       className={cn(
-                        'flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all',
+                        'flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all duration-100 active:scale-[0.97] active:opacity-80',
                         isActive
                           ? 'bg-purple-500/20 text-[var(--cyan)] border border-purple-500/30'
                           : 'text-[var(--text-secondary)] hover:text-white hover:bg-white/5'
@@ -193,7 +193,7 @@ export function TopBar({ profile }: { profile: Profile }) {
               <form action={signOut}>
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold text-rose-400 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 transition-all"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold text-rose-400 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 transition-all duration-100 active:scale-95 active:bg-rose-500/30"
                 >
                   <LogOut className="w-4 h-4" />
                   <span>Log Out of Realm</span>

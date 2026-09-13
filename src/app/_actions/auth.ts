@@ -49,7 +49,14 @@ export async function signup(formData: FormData) {
   })
 
   if (error) {
-    return { error: error.message }
+    const msg = error.message
+    if (msg.toLowerCase().includes('rate limit')) {
+      return {
+        error: 'Supabase email rate limit exceeded. Free tier allows max 3-4 emails/hour.',
+        isRateLimit: true,
+      }
+    }
+    return { error: msg }
   }
 
   // If Supabase has email confirmation enabled and no session is returned yet

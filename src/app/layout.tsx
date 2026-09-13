@@ -1,5 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Outfit, Space_Grotesk } from "next/font/google";
+import { Suspense } from "react";
+import NavigationProgress from "@/app/_components/ui/NavigationProgress";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -11,6 +13,13 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#06061a",
+};
 
 export const metadata: Metadata = {
   title: "Life RPG — Turn Your Real Life Tasks Into An Epic Adventure",
@@ -31,7 +40,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${spaceGrotesk.variable} ${outfit.variable} font-sans h-full antialiased scroll-smooth`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Suspense fallback={null}>
+          <NavigationProgress />
+        </Suspense>
+        {children}
+      </body>
     </html>
   );
 }

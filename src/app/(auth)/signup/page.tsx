@@ -8,6 +8,7 @@ import FloatingParticles from '@/app/_components/ui/FloatingParticles'
 
 export default function SignupPage() {
   const [error, setError] = useState<string | null>(null)
+  const [isRateLimit, setIsRateLimit] = useState(false)
   const [infoMessage, setInfoMessage] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -15,10 +16,14 @@ export default function SignupPage() {
   async function handleSubmit(formData: FormData) {
     setLoading(true)
     setError(null)
+    setIsRateLimit(false)
     setInfoMessage(null)
     const result = await signup(formData)
     if (result?.error) {
       setError(result.error)
+      if (result.isRateLimit || result.error.toLowerCase().includes('rate limit')) {
+        setIsRateLimit(true)
+      }
       setLoading(false)
     } else if (result?.message) {
       setInfoMessage(result.message)
@@ -50,12 +55,45 @@ export default function SignupPage() {
 
         {/* Form Card */}
         <div className="glass-card p-7 sm:p-8 rounded-3xl border border-purple-500/25 shadow-2xl animate-fade-in relative">
-          {error && (
+          {error && !isRateLimit && (
             <div className="mb-5 p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-semibold flex items-center gap-2">
               <span>⚠️</span>
               <span>{error}</span>
             </div>
           )}
+
+          {isRateLimit && (
+            <div className="mb-5 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs space-y-2.5">
+              <div className="flex items-center gap-2 font-bold text-amber-300">
+                <span>⚠️</span>
+                <span>Supabase Email Limit Hit (Max 3-4 emails/hr)</span>
+              </div>
+              <p className="text-slate-300 text-[11px] leading-relaxed">
+                Supabase default mail service par 1 ghante ki signup email limit exceed ho gayi hai.
+              </p>
+              <div className="p-3 rounded-xl bg-black/50 border border-amber-500/25 text-[11px] space-y-1.5">
+                <p className="font-bold text-amber-300 flex items-center gap-1">
+                  <span>⚡</span> Permanent Fix (Instant & Unlimited):
+                </p>
+                <ol className="list-decimal list-inside text-slate-300 space-y-1 font-mono text-[10px]">
+                  <li>Supabase Dashboard → <strong>Authentication</strong></li>
+                  <li>Click <strong>Providers</strong> → <strong>Email</strong></li>
+                  <li>Turn <strong>Confirm email</strong> toggle to <strong>OFF</strong></li>
+                  <li>Click <strong>Save</strong></li>
+                </ol>
+              </div>
+              <div className="pt-1 flex items-center justify-between">
+                <span className="text-[11px] text-slate-400">Account already registered?</span>
+                <Link
+                  href="/login"
+                  className="inline-flex items-center gap-1 text-xs font-bold text-[var(--cyan)] hover:underline"
+                >
+                  Go to Login →
+                </Link>
+              </div>
+            </div>
+          )}
+
           {infoMessage && (
             <div className="mb-5 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold flex items-center gap-2">
               <span>✉️</span>
