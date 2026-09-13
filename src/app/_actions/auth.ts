@@ -166,3 +166,56 @@ export async function updateEmail(formData: FormData) {
 
   return { success: true, message: 'Confirmation email sent to your new address. Please check your inbox.' }
 }
+
+export async function sendPhoneOtp(phone: string) {
+  const supabase = await createClient()
+
+  const cleanPhone = phone.replace(/\s+/g, '')
+  if (!cleanPhone || cleanPhone.length < 8) {
+    return { error: 'Please enter a valid phone number with country code (e.g. +91 98765 43210)' }
+  }
+
+  const { error } = await supabase.auth.signInWithOtp({
+    phone: cleanPhone.startsWith('+') ? cleanPhone : `+${cleanPhone}`,
+  })
+
+  if (error) {
+    const msg = error.message.toLowerCase()
+    if (msg.includes('provider') || msg.includes('unsupported') || msg.includes('disabled')) {
+      return {
+        error: 'Phone authentication is not enabled in Supabase. Please enable Phone provider under Authentication > Providers > Phone.',
+      }
+    }
+    if (msg.includes('rate limit')) {
+      return { error: 'Too many OTP attempts. Please wait a few minutes before trying again.' }
+    }
+    return { error: error.message }
+  }
+
+  return { success: true, message: 'OTP sent successfully!' }
+}
+
+export async function verifyPhoneOtp(phone: string, token: string) {
+  const supabase = await createClient()
+
+  const cleanPhone = phone.replace(/\s+/g, '')
+  const formattedPhone = cleanPhone.startsWith('+') ? cleanPhone : `+${cleanPhone}`
+
+  if (!token || token.trim().length < 4) {
+    return { error: 'Please enter the verification code' }
+  }
+
+  const { data, error } = await supabase.auth.verifyOtp({
+    phone: formattedPhone,
+    token: token.trim(),
+    type: 'sms',
+  })
+
+  if (error) {
+    return { error: error.message || 'Invalid or expired OTP. Please try again.' }
+  }
+
+  revalidatePath('/', 'layout')
+  redirect('/dashboard')
+}
+
