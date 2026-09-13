@@ -10,7 +10,7 @@
 
 | Deliverable | Link |
 |---|---|
-| **🔗 Live Deployed URL** | [https://lifee-rpg.netlify.app](https://lifee-rpg.netlify.app) |
+| **🔗 Live Deployed URL** | [https://life-rpg-sooty.vercel.app](https://life-rpg-sooty.vercel.app) |
 | **🎥 Walkthrough Video** | *TODO: Add public YouTube/Loom link before submission (90–180 seconds, under 100 MB)* |
 | **📦 GitHub Repository** | [https://github.com/codewithsuraj33-sketch/life-rpg](https://github.com/codewithsuraj33-sketch/life-rpg) |
 
@@ -162,7 +162,7 @@ This application does **not** look or feel like a standard enterprise SaaS dashb
 | **Auth** | Supabase Auth with `@supabase/ssr` for server-side session management |
 | **Database** | PostgreSQL (via Supabase) |
 | **CSS Utilities** | `clsx`, `tailwind-merge` |
-| **Deployment** | Netlify |
+| **Deployment** | Vercel |
 
 **Note:** The `@google/generative-ai` package is installed in `package.json` but is **currently unused** by the application. No generative AI feature is exposed to users.
 
@@ -399,11 +399,11 @@ npm run build
 
 ## 🌍 Deployment
 
-### Recommended: Netlify
+### Recommended: Vercel
 
 1. Push your code to GitHub.
-2. Import the repository in [Netlify](https://netlify.com).
-3. Add the two environment variables (`NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`) in Netlify's **Site Settings → Environment Variables**.
+2. Import the repository in [Vercel](https://vercel.com).
+3. Add the two environment variables (`NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`) in Vercel's **Project Settings → Environment Variables**.
 4. Set the build command to `npm run build` and publish directory to `.next`.
 5. Deploy.
 
@@ -563,3 +563,4 @@ This project is built as a hackathon submission. All code is original and writte
 <p align="center">
   <strong>⚔️ Every day is a new quest. Level up your reality. ⚔️</strong>
 </p>
+bahut samay hogaya hai asa hi hai 

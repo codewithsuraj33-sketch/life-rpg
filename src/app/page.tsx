@@ -817,14 +817,14 @@ export default function LandingPage() {
                 engaging, rewarding role-playing game. Built with Next.js, Supabase, and Tailwind CSS.
               </p>
               <div className="text-xs text-[var(--text-muted)]">
-                Live on Netlify:{" "}
+                Live on Vercel:{" "}
                 <a
-                  href="https://lifee-rpg.netlify.app/"
+                  href="https://life-rpg-sooty.vercel.app/"
                   target="_blank"
                   rel="noreferrer"
                   className="text-[var(--cyan)] hover:underline"
                 >
-                  https://lifee-rpg.netlify.app/
+                  https://life-rpg-sooty.vercel.app/
                 </a>
               </div>
             </div>
