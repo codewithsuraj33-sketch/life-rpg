@@ -1,7 +1,7 @@
 'use client'
 
 import { signOut } from '@/app/_actions/auth'
-import { LogOut, Menu } from 'lucide-react'
+import { LogOut, Menu, Sparkles } from 'lucide-react'
 import { calculateProgress } from '@/app/_lib/xp'
 import { useState } from 'react'
 import Link from 'next/link'
@@ -46,10 +46,10 @@ export function TopBar({ profile }: { profile: Profile }) {
 
   return (
     <>
-      <header className="flex items-center justify-between px-3.5 sm:px-6 py-2.5 sm:py-3 border-b border-[var(--border-default)] bg-[var(--bg-secondary)]/80 backdrop-blur-md gap-2 sm:gap-4">
+      <header className="flex items-center justify-between px-4 sm:px-8 py-3 border-b border-[var(--border-default)] bg-[var(--bg-secondary)]/90 backdrop-blur-xl gap-3 sm:gap-6 sticky top-0 z-30">
         {/* Mobile menu button */}
         <button
-          className="md:hidden p-1.5 -ml-1 text-muted hover:text-[var(--purple)] transition-colors cursor-pointer rounded-lg hover:bg-[var(--bg-primary)]"
+          className="md:hidden p-2 -ml-1 text-[var(--text-secondary)] hover:text-white transition-colors cursor-pointer rounded-xl hover:bg-white/5"
           onClick={() => setMobileMenuOpen(true)}
           aria-label="Open navigation menu"
         >
@@ -57,39 +57,62 @@ export function TopBar({ profile }: { profile: Profile }) {
         </button>
 
         {/* Status Bars (HP & XP) */}
-        <div className="flex-1 max-w-xs sm:max-w-md mx-1 sm:mx-4 min-w-0 flex flex-col justify-center">
-          <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-bold">
-            <span className="text-crimson">HP {profile.current_hp ?? 100}/{profile.max_hp ?? 100}</span>
-            <span className="text-purple">Lv.{profile.level} {profile.title}</span>
+        <div className="flex-1 max-w-sm sm:max-w-lg mx-1 sm:mx-4 min-w-0 flex flex-col justify-center space-y-1.5">
+          {/* Bar 1: HP */}
+          <div className="space-y-0.5">
+            <div className="flex items-center justify-between text-[10px] sm:text-xs font-bold">
+              <span className="text-rose-400 flex items-center gap-1">
+                ❤️ HP {profile.current_hp ?? 100}/{profile.max_hp ?? 100}
+              </span>
+              <span className="text-[var(--purple-light)]">
+                Lv.{profile.level} {profile.title}
+              </span>
+            </div>
+            <div className="stat-bar h-1.5 sm:h-2 bg-black/50">
+              <div
+                className="stat-bar-fill bg-gradient-to-r from-rose-600 to-rose-400"
+                style={{
+                  width: `${Math.max(
+                    0,
+                    ((profile.current_hp ?? 100) / (profile.max_hp ?? 100)) * 100
+                  )}%`,
+                }}
+              />
+            </div>
           </div>
-          <div className="stat-bar h-1.5 sm:h-2 mt-0.5 mb-1 bg-red-100">
-            <div
-              className="stat-bar-fill bg-crimson"
-              style={{ width: `${Math.max(0, ((profile.current_hp ?? 100) / (profile.max_hp ?? 100)) * 100)}%` }}
-            />
-          </div>
-          <div className="xp-bar h-1.5 sm:h-2">
-            <div
-              className="xp-bar-fill"
-              style={{ width: `${progress * 100}%` }}
-            />
-          </div>
-          <div className="text-right text-muted font-mono text-[9px] sm:text-[10px] mt-0.5">
-            {currentXP}/{xpForNextLevel} XP
+
+          {/* Bar 2: XP */}
+          <div className="space-y-0.5">
+            <div className="flex items-center justify-between text-[9px] sm:text-[10px] font-mono">
+              <span className="text-[var(--text-secondary)]">Experience</span>
+              <span className="text-[var(--gold)] font-bold">
+                {currentXP} / {xpForNextLevel} XP ({Math.round(progress * 100)}%)
+              </span>
+            </div>
+            <div className="xp-bar h-1.5 sm:h-2 bg-black/50">
+              <div
+                className="xp-bar-fill"
+                style={{ width: `${Math.min(100, Math.max(0, progress * 100))}%` }}
+              />
+            </div>
           </div>
         </div>
 
         {/* Coins + Logout */}
         <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
-          <div className="flex items-center gap-1 text-[var(--gold)] font-mono font-bold text-xs sm:text-sm bg-[var(--bg-primary)] border border-[var(--border-default)] px-2 py-1 rounded-md sm:bg-transparent sm:border-0 sm:p-0">
+          <Link
+            href="/shop"
+            className="flex items-center gap-1.5 text-[var(--gold)] font-mono font-bold text-xs sm:text-sm bg-amber-500/10 border border-amber-500/30 px-3 py-1.5 rounded-xl hover:bg-amber-500/15 transition-all shadow-sm shadow-amber-500/10"
+            title="Open Shop"
+          >
             <span>🪙</span>
             <span>{profile.coins.toLocaleString()}</span>
-          </div>
+          </Link>
 
           <form action={signOut}>
             <button
               type="submit"
-              className="p-1.5 text-muted hover:text-rose-500 transition-colors cursor-pointer rounded-lg hover:bg-[var(--bg-primary)]"
+              className="p-2 text-[var(--text-muted)] hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer rounded-xl border border-transparent hover:border-rose-500/20"
               title="Sign Out"
             >
               <LogOut className="w-4 h-4" />
@@ -102,62 +125,81 @@ export function TopBar({ profile }: { profile: Profile }) {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 md:hidden">
           <div
-            className="absolute inset-0 bg-black/20 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/60 backdrop-blur-md animate-fade-in"
             onClick={() => setMobileMenuOpen(false)}
           />
-          <div className="absolute left-0 top-0 bottom-0 w-64 bg-[var(--bg-secondary)] border-r border-[var(--border-default)] animate-slide-in shadow-2xl">
-            {/* Close button */}
-            <div className="flex items-center justify-between px-6 py-5 border-b border-[var(--border-default)]">
-              <div className="flex items-center gap-2">
-                <Sword className="w-6 h-6 text-[var(--purple)]" />
-                <span className="text-xl font-black">
-                  LIFE<span className="text-[var(--purple)]">RPG</span>
-                </span>
+          <div className="absolute left-0 top-0 bottom-0 w-72 bg-[var(--bg-secondary)] border-r border-[var(--border-default)] animate-slide-in shadow-2xl flex flex-col justify-between">
+            <div>
+              {/* Header */}
+              <div className="flex items-center justify-between px-6 py-5 border-b border-[var(--border-default)]">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[var(--purple)] to-indigo-600 flex items-center justify-center shadow-md">
+                    <Sparkles className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="text-xl font-black text-white">
+                    Life<span className="text-[var(--cyan)]">RPG</span>
+                  </span>
+                </div>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-1 rounded-lg text-[var(--text-muted)] hover:text-white"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-muted hover:text-[var(--purple)]"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
 
-            {/* Character */}
-            <div className="px-4 py-5 border-b border-[var(--border-default)] bg-[var(--bg-primary)]">
-              <div className="flex items-center gap-3">
-                <div className="text-3xl bg-[var(--bg-card)] border border-[var(--border-default)] p-2 rounded-xl shadow-[var(--shadow-cyan)]">{profile.avatar_url}</div>
-                <div>
-                  <p className="font-bold text-sm text-[var(--text-primary)]">{profile.username}</p>
-                  <p className="text-xs font-semibold text-[var(--cyan)] mt-0.5">
-                    Lv.{profile.level} {profile.title}
-                  </p>
+              {/* Character Card */}
+              <div className="px-5 py-4 border-b border-[var(--border-default)] bg-[var(--bg-primary)]/70">
+                <div className="flex items-center gap-3">
+                  <div className="text-3xl bg-[var(--bg-card)] border border-purple-500/30 p-2 rounded-2xl shadow-md">
+                    {profile.avatar_url || '🧙‍♂️'}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-bold text-sm text-white truncate">{profile.username}</p>
+                    <p className="text-xs font-semibold text-[var(--cyan)] truncate mt-0.5">
+                      Lv.{profile.level} {profile.title}
+                    </p>
+                  </div>
                 </div>
               </div>
+
+              {/* Navigation */}
+              <nav className="px-3 py-4 space-y-1.5">
+                {navItems.map((item) => {
+                  const isActive = pathname === item.href
+                  const Icon = item.icon
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={cn(
+                        'flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all',
+                        isActive
+                          ? 'bg-purple-500/20 text-[var(--cyan)] border border-purple-500/30'
+                          : 'text-[var(--text-secondary)] hover:text-white hover:bg-white/5'
+                      )}
+                    >
+                      <Icon className="w-5 h-5" />
+                      {item.label}
+                    </Link>
+                  )
+                })}
+              </nav>
             </div>
 
-            {/* Nav */}
-            <nav className="px-3 py-4 space-y-1 bg-[var(--bg-secondary)] h-full">
-              {navItems.map((item) => {
-                const isActive = pathname === item.href
-                const Icon = item.icon
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={cn(
-                      'flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all',
-                      isActive
-                        ? 'bg-[var(--purple-bg)] text-[var(--purple)] border border-[var(--border-default)]'
-                        : 'text-muted hover:text-[var(--text-primary)] hover:bg-[var(--bg-primary)]'
-                    )}
-                  >
-                    <Icon className="w-5 h-5" />
-                    {item.label}
-                  </Link>
-                )
-              })}
-            </nav>
+            {/* Mobile Footer Logout */}
+            <div className="p-4 border-t border-[var(--border-default)]">
+              <form action={signOut}>
+                <button
+                  type="submit"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold text-rose-400 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 transition-all"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Log Out of Realm</span>
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       )}

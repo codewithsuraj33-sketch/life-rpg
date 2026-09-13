@@ -22,12 +22,14 @@ export default async function GameLayout({ children }: { children: React.ReactNo
   }
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-[var(--bg-primary)]">
       <Sidebar profile={profile} />
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
         <TopBar profile={profile} />
-        <main className="flex-1 overflow-y-auto px-3.5 py-4 sm:p-6 md:p-8">
-          {children}
+        <main className="flex-1 overflow-y-auto px-3.5 py-4 sm:p-6 md:p-8 scroll-smooth relative z-10">
+          <div className="max-w-7xl mx-auto w-full">
+            {children}
+          </div>
         </main>
       </div>
     </div>

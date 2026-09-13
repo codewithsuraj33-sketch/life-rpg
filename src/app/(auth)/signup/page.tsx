@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import { signup } from '@/app/_actions/auth'
 import Link from 'next/link'
-import { Sword, UserPlus, Eye, EyeOff } from 'lucide-react'
+import { UserPlus, Eye, EyeOff, Sparkles, ArrowRight } from 'lucide-react'
+import FloatingParticles from '@/app/_components/ui/FloatingParticles'
 
 export default function SignupPage() {
   const [error, setError] = useState<string | null>(null)
@@ -26,36 +27,45 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="flex-1 flex items-center justify-center px-6 py-16">
-      <div className="w-full max-w-md">
+    <div className="flex-1 flex items-center justify-center px-6 py-16 relative overflow-hidden bg-[var(--bg-primary)] min-h-[calc(100vh-80px)]">
+      {/* Ambient background particles */}
+      <FloatingParticles count={10} />
+
+      <div className="w-full max-w-md relative z-10">
         {/* Logo */}
         <div className="text-center mb-8 animate-fade-in">
-          <Link href="/" className="inline-flex items-center gap-2 mb-6">
-            <Sword className="w-8 h-8 text-gold" />
-            <span className="text-2xl font-bold tracking-tight">
-              Life<span className="text-gold">RPG</span>
+          <Link href="/" className="inline-flex items-center gap-2.5 mb-5 group">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[var(--purple)] to-indigo-600 flex items-center justify-center shadow-lg shadow-purple-500/30 group-hover:scale-105 transition-transform">
+              <Sparkles className="w-5 h-5 text-white" />
+            </div>
+            <span className="text-2xl font-black tracking-tight text-white">
+              Life<span className="text-[var(--cyan)]">RPG</span>
             </span>
           </Link>
-          <h1 className="text-3xl font-bold mt-2">Create Your Character</h1>
-          <p className="text-muted mt-2">Begin your epic adventure</p>
+          <h1 className="text-3xl sm:text-4xl font-black text-white mt-1">Create Your Hero</h1>
+          <p className="text-sm text-[var(--text-secondary)] mt-2">
+            Begin your journey to legendary productivity
+          </p>
         </div>
 
         {/* Form Card */}
-        <div className="card p-8 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+        <div className="glass-card p-7 sm:p-8 rounded-3xl border border-purple-500/25 shadow-2xl animate-fade-in relative">
           {error && (
-            <div className="mb-4 p-3 rounded-lg bg-crimson/10 border border-crimson/30 text-crimson text-sm">
-              {error}
+            <div className="mb-5 p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-semibold flex items-center gap-2">
+              <span>⚠️</span>
+              <span>{error}</span>
             </div>
           )}
           {infoMessage && (
-            <div className="mb-4 p-3.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm">
-              {infoMessage}
+            <div className="mb-5 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold flex items-center gap-2">
+              <span>✉️</span>
+              <span>{infoMessage}</span>
             </div>
           )}
 
           <form action={handleSubmit} className="space-y-5">
             <div>
-              <label htmlFor="username" className="block text-sm font-medium mb-2 text-muted">
+              <label htmlFor="username" className="block text-xs font-bold uppercase tracking-wider mb-2 text-[var(--text-secondary)]">
                 Character Name
               </label>
               <input
@@ -71,8 +81,8 @@ export default function SignupPage() {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-2 text-muted">
-                Email
+              <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider mb-2 text-[var(--text-secondary)]">
+                Email Address
               </label>
               <input
                 id="email"
@@ -85,7 +95,7 @@ export default function SignupPage() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium mb-2 text-muted">
+              <label htmlFor="password" className="block text-xs font-bold uppercase tracking-wider mb-2 text-[var(--text-secondary)]">
                 Password
               </label>
               <div className="relative">
@@ -95,31 +105,33 @@ export default function SignupPage() {
                   type={showPassword ? 'text' : 'password'}
                   required
                   minLength={6}
-                  className="input pr-10"
+                  className="input pr-11"
                   placeholder="••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-gold transition-colors"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[var(--text-muted)] hover:text-white transition-colors"
+                  aria-label="Toggle password visibility"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
-              <p className="text-xs text-dim mt-1">At least 6 characters</p>
+              <p className="text-[11px] text-[var(--text-muted)] mt-1.5">At least 6 characters required</p>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="btn-primary w-full flex items-center justify-center gap-2 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn-primary w-full flex items-center justify-center gap-2 py-3.5 rounded-xl text-sm font-bold shadow-lg shadow-purple-600/30 hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all mt-2"
             >
               {loading ? (
-                <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 <>
                   <UserPlus className="w-4 h-4" />
-                  Start Adventure
+                  <span>Start Adventure</span>
+                  <ArrowRight className="w-4 h-4 ml-1" />
                 </>
               )}
             </button>
@@ -127,10 +139,10 @@ export default function SignupPage() {
         </div>
 
         {/* Login link */}
-        <p className="text-center mt-6 text-muted text-sm animate-fade-in" style={{ animationDelay: '0.2s' }}>
+        <p className="text-center mt-6 text-[var(--text-secondary)] text-sm animate-fade-in">
           Already an adventurer?{' '}
-          <Link href="/login" className="text-gold hover:underline font-medium">
-            Log In
+          <Link href="/login" className="text-[var(--cyan)] hover:underline font-bold ml-1">
+            Log In →
           </Link>
         </p>
       </div>

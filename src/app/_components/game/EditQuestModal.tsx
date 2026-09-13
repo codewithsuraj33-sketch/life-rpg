@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { X } from 'lucide-react'
 import { updateQuest } from '@/app/_actions/quests'
 import { DIFFICULTY_XP, DIFFICULTY_COINS } from '@/app/_lib/constants'
@@ -31,6 +31,16 @@ export function EditQuestModal({ quest, stats, isOpen, onClose }: EditQuestModal
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown)
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen, onClose])
+
   if (!isOpen) return null
 
   async function handleSubmit(formData: FormData) {
@@ -47,7 +57,12 @@ export function EditQuestModal({ quest, stats, isOpen, onClose }: EditQuestModal
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-3.5 sm:p-4">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-3.5 sm:p-4 animate-fade-in"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose()
+      }}
+    >
       <div className="w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl border border-amber-500/30 bg-[var(--bg-card)] p-5 sm:p-6 shadow-2xl">
         <div className="flex items-center justify-between pb-3 border-b border-[var(--border-default)] sticky top-0 bg-[var(--bg-card)] z-10">
           <h2 className="text-base sm:text-lg font-bold flex items-center gap-2">

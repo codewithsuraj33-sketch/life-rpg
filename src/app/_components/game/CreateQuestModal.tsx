@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Plus, X } from 'lucide-react'
 import { createQuest } from '@/app/_actions/quests'
 import { DIFFICULTY_XP, DIFFICULTY_COINS, DIFFICULTY_INFO } from '@/app/_lib/constants'
@@ -18,6 +18,16 @@ export function CreateQuestModal({ stats }: { stats: Stat[] }) {
   const [isNegative, setIsNegative] = useState<boolean>(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false)
+    }
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown)
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen])
 
   async function handleSubmit(formData: FormData) {
     setLoading(true)
@@ -43,7 +53,12 @@ export function CreateQuestModal({ stats }: { stats: Stat[] }) {
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-3.5 sm:p-4">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-3.5 sm:p-4 animate-fade-in"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setIsOpen(false)
+          }}
+        >
           <div className="w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-[32px] border border-[var(--border-default)] bg-[var(--bg-card)] p-5 sm:p-6 shadow-2xl">
             <div className="flex items-center justify-between pb-3 border-b border-[var(--border-default)] sticky top-0 bg-[var(--bg-card)] z-10">
               <h2 className="text-base sm:text-lg font-bold flex items-center gap-2 text-[var(--text-primary)]">
@@ -72,7 +87,7 @@ export function CreateQuestModal({ stats }: { stats: Stat[] }) {
                   name="title"
                   required
                   placeholder="e.g. Read 20 pages of a book"
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-transparent bg-[#f1f0f5] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[var(--purple)] focus:ring-2 focus:ring-[var(--purple-bg)] transition-all"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[var(--purple)] focus:ring-2 focus:ring-[var(--purple-bg)] transition-all"
                 />
               </div>
 
@@ -83,7 +98,7 @@ export function CreateQuestModal({ stats }: { stats: Stat[] }) {
                   name="description"
                   rows={2}
                   placeholder="Add details, objectives, or instructions..."
-                  className="w-full px-3.5 py-2.5 rounded-lg border border-transparent bg-[#f1f0f5] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[var(--purple)] focus:ring-2 focus:ring-[var(--purple-bg)] transition-all resize-none"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[var(--purple)] focus:ring-2 focus:ring-[var(--purple-bg)] transition-all resize-none"
                 />
               </div>
 
@@ -95,7 +110,7 @@ export function CreateQuestModal({ stats }: { stats: Stat[] }) {
                     name="type"
                     value={type}
                     onChange={(e) => setType(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg border border-transparent bg-[#f1f0f5] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[var(--purple)]"
+                    className="w-full px-3 py-2 rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[var(--purple)]"
                   >
                     <option value="todo">Task (One-time)</option>
                     <option value="daily">Daily Habit</option>
@@ -110,7 +125,7 @@ export function CreateQuestModal({ stats }: { stats: Stat[] }) {
                     name="difficulty"
                     value={difficulty}
                     onChange={(e) => setDifficulty(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg border border-transparent bg-[#f1f0f5] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[var(--purple)]"
+                    className="w-full px-3 py-2 rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[var(--purple)]"
                   >
                     <option value="easy">Easy (+15 XP)</option>
                     <option value="medium">Medium (+30 XP)</option>
@@ -141,7 +156,7 @@ export function CreateQuestModal({ stats }: { stats: Stat[] }) {
                 <label className="block text-xs font-semibold text-muted mb-1">Character Attribute</label>
                 <select
                   name="stat_id"
-                  className="w-full px-3 py-2 rounded-lg border border-transparent bg-[#f1f0f5] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[var(--purple)]"
+                  className="w-full px-3 py-2 rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] text-[var(--text-primary)] text-sm focus:outline-none focus:border-[var(--purple)]"
                 >
                   <option value="">None (General XP)</option>
                   {stats.map((s) => (
