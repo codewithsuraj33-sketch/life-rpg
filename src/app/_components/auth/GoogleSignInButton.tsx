@@ -13,10 +13,12 @@ export default function GoogleSignInButton({ text = 'Continue with Google' }: { 
 
     try {
       const supabase = createClient()
+      const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+      const appOrigin = isLocalhost ? window.location.origin : 'https://life-rpg-sooty.vercel.app'
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/api/auth/callback`,
+          redirectTo: `${appOrigin}/api/auth/callback`,
         },
       })
 
