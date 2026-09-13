@@ -180,15 +180,7 @@ export async function sendPhoneOtp(phone: string) {
   })
 
   if (error) {
-    const msg = error.message.toLowerCase()
-    if (msg.includes('provider') || msg.includes('unsupported') || msg.includes('disabled')) {
-      return {
-        error: 'Phone authentication is not enabled in Supabase. Please enable Phone provider under Authentication > Providers > Phone.',
-      }
-    }
-    if (msg.includes('rate limit')) {
-      return { error: 'Too many OTP attempts. Please wait a few minutes before trying again.' }
-    }
+    console.error('Supabase signInWithOtp error:', error.message, error)
     return { error: error.message }
   }
 
