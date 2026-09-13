@@ -1,6 +1,6 @@
 # ⚔️ Life RPG — Turn Your Real Life Into An Epic Adventure
 
-> *"Every day is a new quest."*
+> _"Every day is a new quest."_
 
 **Life RPG** is a full-stack gamified productivity web application that transforms your everyday tasks, habits, and goals into an immersive RPG experience. Complete quests, earn XP and gold, level up your character, build streaks, unlock achievements, shop for rewards, and compete on a global leaderboard — all while getting real things done.
 
@@ -8,10 +8,10 @@
 
 ## 🌐 Live Demo & Video
 
-| Deliverable | Link |
-|---|---|
-| **🔗 Live Deployed URL** | [https://life-rpg-sooty.vercel.app](https://life-rpg-sooty.vercel.app) |
-| **🎥 Walkthrough Video** | *TODO: Add public YouTube/Loom link before submission (90–180 seconds, under 100 MB)* |
+| Deliverable              | Link                                                                                                     |
+| ------------------------ | -------------------------------------------------------------------------------------------------------- |
+| **🔗 Live Deployed URL** | [https://life-rpg-sooty.vercel.app](https://life-rpg-sooty.vercel.app)                                   |
+| **🎥 Walkthrough Video** | _TODO: Add public YouTube/Loom link before submission (90–180 seconds, under 100 MB)_                    |
 | **📦 GitHub Repository** | [https://github.com/codewithsuraj33-sketch/life-rpg](https://github.com/codewithsuraj33-sketch/life-rpg) |
 
 ---
@@ -59,6 +59,7 @@ This application does **not** look or feel like a standard enterprise SaaS dashb
 ## ✨ Core Features
 
 ### 🔐 User Authentication & Security
+
 - Secure **email/password** signup, login, logout, and session persistence via **Supabase Auth**.
 - Username selection during signup with Supabase email confirmation support.
 - Server-side authentication checks protect all game routes — unauthenticated users are redirected.
@@ -68,6 +69,7 @@ This application does **not** look or feel like a standard enterprise SaaS dashb
 - A user can **only** see and modify their own tasks and character data.
 
 ### 📋 Quest CRUD (Full Database Persistence)
+
 - **Create** quests with title, description, difficulty, type, linked character attribute, and negative/positive toggle.
 - **Read/Browse** all your quests on the Quest Board with filter and sort.
 - **Edit** existing quests — update title, description, difficulty, type, and linked stat.
@@ -78,6 +80,7 @@ This application does **not** look or feel like a standard enterprise SaaS dashb
 - Data persists across page refreshes and sessions (server-rendered from Supabase).
 
 ### 📊 RPG Progression Engine
+
 - **Non-linear leveling** system from Level 1 to Level 20 (formula: `100 × level^1.5`, rounded). Each subsequent level requires more XP than the last.
 - **10 Unique Titles:** Novice → Apprentice → Adventurer → Warrior → Champion → Hero → Legend → Mythic → Immortal → Godlike.
 - **4 Difficulty Tiers:** Easy (15 XP / 5 Gold), Medium (30 XP / 10 Gold), Hard (60 XP / 25 Gold), Legendary (120 XP / 50 Gold).
@@ -85,6 +88,7 @@ This application does **not** look or feel like a standard enterprise SaaS dashb
 - **Level-Up Celebrations:** Confetti bursts, ascending arpeggio sound effect, and a glowing modal when you level up.
 
 ### 🧬 Character & Attributes
+
 - **6 Core Character Attributes:** Health ❤️, Career 💼, Social 🤝, Knowledge 📚, Fitness 💪, Creativity 🎨.
 - Each attribute has its own XP and level — completing quests linked to a stat raises that stat independently.
 - **Character Classes:** Choose from Warrior, Mage, or Rogue — each gives a **1.5× XP bonus** for quests aligned with their specialization (e.g., Warrior gets bonus XP for Fitness/Health quests).
@@ -92,6 +96,7 @@ This application does **not** look or feel like a standard enterprise SaaS dashb
 - **Inventory / Bag:** View all purchased items, equipped avatars, and earned titles.
 
 ### 🏪 Rewards Shop & Economy
+
 - **Gold currency** earned from completing quests.
 - Spend gold on:
   - **Minor XP Elixir** (30 gold → +50 XP) and **Greater XP Elixir** (80 gold → +150 XP)
@@ -101,6 +106,7 @@ This application does **not** look or feel like a standard enterprise SaaS dashb
 - Duplicate purchase prevention is enforced.
 
 ### 🏆 Achievements
+
 - Milestone-based achievement badges awarded automatically when you reach thresholds:
   - Quests completed milestones
   - Streak milestones
@@ -110,11 +116,13 @@ This application does **not** look or feel like a standard enterprise SaaS dashb
 - Each achievement grants **bonus XP** as a reward.
 
 ### 🐉 Shared Boss Encounter
+
 - A global community boss (**"The Procrastination Dragon 🐉"**) with 10,000 HP.
 - Every quest completed by any user on the platform deals 1 damage to the boss.
 - A real-time health bar on the dashboard shows global progress.
 
 ### 📊 Dashboard & Activity
+
 - **Hero Overview Banner:** Avatar, username, level, title, gold count, total quests completed, and XP progress bar.
 - **Character Attributes Grid:** Quick glance at all 6 stats with levels.
 - **Active Quests Quick-Board:** See your most recent uncompleted quests with direct completion links.
@@ -125,18 +133,21 @@ This application does **not** look or feel like a standard enterprise SaaS dashb
 - **Class Selection Modal:** First-time prompt to choose your character class.
 
 ### 👑 Global Leaderboard
+
 - **Time-based leaderboards:** All-Time, Weekly, and Monthly rankings.
 - Displays rank, username, avatar, level, title, and total XP.
 - **Automated gold rewards** for top-ranked players.
 - Public access — even unauthenticated users can view the leaderboard from the landing page.
 
 ### 🎵 Sound Effects (Web Audio API)
+
 - **Retro RPG sound effects** generated entirely via the Web Audio API — no external audio files needed:
   - ⚔️ **Sword slash** sound on quest completion
   - 🎵 **Level-up arpeggio** (ascending C-E-G-C notes) on level up
   - 🪙 **Coin chime** on reward/purchase
 
 ### 📱 Responsive & Accessible UI
+
 - Fully responsive from **mobile to desktop** with Tailwind CSS responsive breakpoints.
 - **Keyboard navigable:** Primary actions (buttons, links, forms) are reachable via Tab, Enter, and Space.
 - **Semantic HTML5** elements, proper heading hierarchy (single `<h1>` per page), and `<label>` associations on form inputs.
@@ -148,21 +159,21 @@ This application does **not** look or feel like a standard enterprise SaaS dashb
 
 ## 🛠️ Tech Stack
 
-| Layer | Technology |
-|---|---|
-| **Frontend Framework** | Next.js 16 (App Router, Server Components, Server Actions) |
-| **UI Library** | React 19 |
-| **Language** | TypeScript 5 |
-| **Styling** | Tailwind CSS 4 + Custom CSS Design System (Cyber-Fantasy theme) |
-| **Typography** | [Outfit](https://fonts.google.com/specimen/Outfit) (Google Fonts) |
-| **Icons** | Lucide React |
-| **Celebration Effects** | `canvas-confetti` |
-| **Sound Effects** | Web Audio API (no external files) |
-| **Backend / BaaS** | Supabase (PostgreSQL, Auth, RLS) |
-| **Auth** | Supabase Auth with `@supabase/ssr` for server-side session management |
-| **Database** | PostgreSQL (via Supabase) |
-| **CSS Utilities** | `clsx`, `tailwind-merge` |
-| **Deployment** | Vercel |
+| Layer                   | Technology                                                            |
+| ----------------------- | --------------------------------------------------------------------- |
+| **Frontend Framework**  | Next.js 16 (App Router, Server Components, Server Actions)            |
+| **UI Library**          | React 19                                                              |
+| **Language**            | TypeScript 5                                                          |
+| **Styling**             | Tailwind CSS 4 + Custom CSS Design System (Cyber-Fantasy theme)       |
+| **Typography**          | [Outfit](https://fonts.google.com/specimen/Outfit) (Google Fonts)     |
+| **Icons**               | Lucide React                                                          |
+| **Celebration Effects** | `canvas-confetti`                                                     |
+| **Sound Effects**       | Web Audio API (no external files)                                     |
+| **Backend / BaaS**      | Supabase (PostgreSQL, Auth, RLS)                                      |
+| **Auth**                | Supabase Auth with `@supabase/ssr` for server-side session management |
+| **Database**            | PostgreSQL (via Supabase)                                             |
+| **CSS Utilities**       | `clsx`, `tailwind-merge`                                              |
+| **Deployment**          | Vercel                                                                |
 
 **Note:** The `@google/generative-ai` package is installed in `package.json` but is **currently unused** by the application. No generative AI feature is exposed to users.
 
@@ -250,19 +261,20 @@ life-rpg/
 
 The application reads and writes these **Supabase PostgreSQL** tables:
 
-| Table | Purpose |
-|---|---|
-| `profiles` | User profile — level, XP, coins, title, avatar, class, HP, last login date |
-| `stats` | Character attributes — name, icon, color, XP, level (per user) |
-| `quests` | User quests — title, description, type, difficulty, rewards, streak, completion status |
-| `activity_log` | Activity history — action description, XP gained, coins gained, timestamp |
-| `inventory` | Purchased shop items — item ID, category, purchase date |
-| `achievements` | Achievement definitions — name, icon, requirement type/value, XP reward |
-| `user_achievements` | Junction table — which achievements each user has unlocked |
-| `bosses` | Global boss encounters — name, max HP, current HP, active status |
-| `system_rewards_log` | Leaderboard reward distribution log |
+| Table                | Purpose                                                                                |
+| -------------------- | -------------------------------------------------------------------------------------- |
+| `profiles`           | User profile — level, XP, coins, title, avatar, class, HP, last login date             |
+| `stats`              | Character attributes — name, icon, color, XP, level (per user)                         |
+| `quests`             | User quests — title, description, type, difficulty, rewards, streak, completion status |
+| `activity_log`       | Activity history — action description, XP gained, coins gained, timestamp              |
+| `inventory`          | Purchased shop items — item ID, category, purchase date                                |
+| `achievements`       | Achievement definitions — name, icon, requirement type/value, XP reward                |
+| `user_achievements`  | Junction table — which achievements each user has unlocked                             |
+| `bosses`             | Global boss encounters — name, max HP, current HP, active status                       |
+| `system_rewards_log` | Leaderboard reward distribution log                                                    |
 
 **Security:**
+
 - Row Level Security (RLS) is enabled on all user-owned tables.
 - Foreign keys and ownership checks ensure data isolation per user.
 - The `bosses` table allows read access for all users and update access only for authenticated users.
@@ -274,45 +286,45 @@ The application reads and writes these **Supabase PostgreSQL** tables:
 ### XP Table (Non-Linear)
 
 | Level | Total XP Required | Title Unlocked |
-|---|---|---|
-| 1 | 0 | Novice |
-| 2 | 100 | — |
-| 3 | 260 | Apprentice |
-| 4 | 490 | — |
-| 5 | 800 | Adventurer |
-| 6 | 1,200 | — |
-| 7 | 1,700 | Warrior |
-| 8 | 2,300 | — |
-| 9 | 3,000 | Champion |
-| 10 | 3,800 | — |
-| 11 | 4,750 | Hero |
-| 12 | 5,800 | — |
-| 13 | 7,000 | Legend |
-| 14 | 8,350 | — |
-| 15 | 9,850 | Mythic |
-| 16 | 11,500 | — |
-| 17 | 13,300 | Immortal |
-| 18 | 15,300 | — |
-| 19 | 17,500 | — |
-| 20 | 20,000 | Godlike |
+| ----- | ----------------- | -------------- |
+| 1     | 0                 | Novice         |
+| 2     | 100               | —              |
+| 3     | 260               | Apprentice     |
+| 4     | 490               | —              |
+| 5     | 800               | Adventurer     |
+| 6     | 1,200             | —              |
+| 7     | 1,700             | Warrior        |
+| 8     | 2,300             | —              |
+| 9     | 3,000             | Champion       |
+| 10    | 3,800             | —              |
+| 11    | 4,750             | Hero           |
+| 12    | 5,800             | —              |
+| 13    | 7,000             | Legend         |
+| 14    | 8,350             | —              |
+| 15    | 9,850             | Mythic         |
+| 16    | 11,500            | —              |
+| 17    | 13,300            | Immortal       |
+| 18    | 15,300            | —              |
+| 19    | 17,500            | —              |
+| 20    | 20,000            | Godlike        |
 
 ### Streak Multiplier
 
 | Consecutive Completions | XP/Gold Multiplier |
-|---|---|
-| 1–2 | 1.0× |
-| 3–6 | 1.1× |
-| 7–13 | 1.3× |
-| 14–29 | 1.5× |
-| 30+ | 2.0× |
+| ----------------------- | ------------------ |
+| 1–2                     | 1.0×               |
+| 3–6                     | 1.1×               |
+| 7–13                    | 1.3×               |
+| 14–29                   | 1.5×               |
+| 30+                     | 2.0×               |
 
 ### Class Bonuses
 
-| Class | 1.5× XP Bonus For |
-|---|---|
+| Class      | 1.5× XP Bonus For                |
+| ---------- | -------------------------------- |
 | ⚔️ Warrior | Health, Fitness, Strength quests |
-| 🧙 Mage | Intellect, Career, Study quests |
-| 🗡️ Rogue | Social, Fun, Charisma quests |
+| 🧙 Mage    | Intellect, Career, Study quests  |
+| 🗡️ Rogue   | Social, Fun, Charisma quests     |
 
 ---
 
@@ -387,10 +399,10 @@ npm run build
 
 ## 🔑 Environment Variables
 
-| Variable | Description | Required |
-|---|---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL | ✅ |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Your Supabase anonymous/public API key | ✅ |
+| Variable                        | Description                            | Required |
+| ------------------------------- | -------------------------------------- | -------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Your Supabase project URL              | ✅       |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Your Supabase anonymous/public API key | ✅       |
 
 - `.env.local` is listed in `.gitignore` and is **never committed** to the repository.
 - `.env.example` is provided as a safe template.
@@ -428,9 +440,9 @@ After deploying, verify these flows on the live URL:
 
 ### AI Tools Used
 
-| Tool | How It Was Used |
-|---|---|
-| **GitHub Copilot** | Code suggestions, autocompletion, debugging assistance, and reviewing implementation ideas during development. |
+| Tool                                | How It Was Used                                                                                                        |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **GitHub Copilot**                  | Code suggestions, autocompletion, debugging assistance, and reviewing implementation ideas during development.         |
 | **Google Gemini (Antigravity IDE)** | Used for code generation assistance, debugging, architectural planning, README documentation writing, and code review. |
 
 ### AI Features in the Application
@@ -440,17 +452,17 @@ After deploying, verify these flows on the live URL:
 
 ### Development Tools
 
-| Tool | Purpose |
-|---|---|
-| **Visual Studio Code** | Primary code editor |
-| **Antigravity IDE** | AI-assisted development environment |
-| **Node.js / npm** | Runtime and package management |
-| **Git / GitHub** | Version control and repository hosting |
+| Tool                   | Purpose                                                                   |
+| ---------------------- | ------------------------------------------------------------------------- |
+| **Visual Studio Code** | Primary code editor                                                       |
+| **Antigravity IDE**    | AI-assisted development environment                                       |
+| **Node.js / npm**      | Runtime and package management                                            |
+| **Git / GitHub**       | Version control and repository hosting                                    |
 | **Supabase Dashboard** | Database management, auth configuration, SQL editor, and RLS policy setup |
-| **Next.js Dev Server** | Local development and hot reload |
-| **Vercel** | Production deployment |
-| **ESLint** | Code linting and quality checks |
-| **TypeScript** | Static type checking |
+| **Next.js Dev Server** | Local development and hot reload                                          |
+| **Vercel**             | Production deployment                                                     |
+| **ESLint**             | Code linting and quality checks                                           |
+| **TypeScript**         | Static type checking                                                      |
 
 ### Generated Assets
 
@@ -471,15 +483,16 @@ After deploying, verify these flows on the live URL:
 
 ## 👥 Team & Contributions
 
-| # | Name | Role & Contribution |
-|---|---|---|
-| 1 | **Suraj** | Full-Stack Developer — Architecture, frontend (React/Next.js), backend (Supabase), RPG progression engine, UI/UX design, deployment, testing |
+| #   | Name      | Role & Contribution                                                                                                                          |
+| --- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Suraj** | Full-Stack Developer — Architecture, frontend (React/Next.js), backend (Supabase), RPG progression engine, UI/UX design, deployment, testing |
 
 ---
 
 ## ✅ Judging Criteria Checklist
 
 ### 🎨 Design & UX (Crucial)
+
 - [x] Coherent **Cyber-Fantasy** visual language — not a generic dashboard
 - [x] Custom design system with CSS variables, gradients, glassmorphism, and glow effects
 - [x] Modern typography (**Outfit** from Google Fonts)
@@ -491,6 +504,7 @@ After deploying, verify these flows on the live URL:
 - [x] Mobile-friendly game flows with touch optimization
 
 ### ⚡ Performance & SEO
+
 - [x] Next.js 16 App Router with server-rendered pages
 - [x] Parallel data fetching with `Promise.all` on the dashboard
 - [x] Optimized CSS with minimal JavaScript bundle
@@ -502,6 +516,7 @@ After deploying, verify these flows on the live URL:
 - [x] Tested production build on mobile and desktop
 
 ### 🎮 Creativity & Gamification
+
 - [x] Real-life tasks mapped to **quests** with 4 types and 4 difficulty tiers
 - [x] **6 character attributes** that level independently
 - [x] **Streak bonuses** scaling up to 2× multiplier
@@ -519,6 +534,7 @@ After deploying, verify these flows on the live URL:
 - [x] Progression system feels rewarding, well-thought-out, and not like an afterthought
 
 ### 🔒 Robustness & Edge Cases
+
 - [x] Empty states handled (no quests, no stats, no activity)
 - [x] Invalid signup input validation (empty title, character limits)
 - [x] Unauthenticated route protection via middleware
@@ -530,6 +546,7 @@ After deploying, verify these flows on the live URL:
 - [x] Streak tracking with best-streak persistence
 
 ### ♿ Accessibility & Responsiveness
+
 - [x] Primary actions are keyboard reachable (Tab, Enter, Space)
 - [x] Labels associated with form inputs
 - [x] Focus indicators are visible
@@ -563,4 +580,4 @@ This project is built as a hackathon submission. All code is original and writte
 <p align="center">
   <strong>⚔️ Every day is a new quest. Level up your reality. ⚔️</strong>
 </p>
-bahut samay hogaya hai asa hi hai 
+bahut samay hogaya hai asa hi hai
