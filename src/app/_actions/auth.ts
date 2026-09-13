@@ -3,6 +3,7 @@
 import { createClient } from '@/app/_lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
+import { headers } from 'next/headers'
 
 export async function login(formData: FormData) {
   const supabase = await createClient()
@@ -74,4 +75,94 @@ export async function signOut() {
   const supabase = await createClient()
   await supabase.auth.signOut()
   redirect('/')
+}
+
+export async function forgotPassword(formData: FormData) {
+  const supabase = await createClient()
+  const email = formData.get('email') as string
+
+  if (!email) {
+    return { error: 'Please enter your email address' }
+  }
+
+  let origin = process.env.NEXT_PUBLIC_SITE_URL
+  if (!origin) {
+    try {
+      const headersList = await headers()
+      const host = headersList.get('host')
+      const proto = headersList.get('x-forwarded-proto') || 'http'
+      if (host) {
+        origin = `${proto}://${host}`
+      }
+    } catch {
+      origin = 'http://localhost:3000'
+    }
+  }
+
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${origin || 'http://localhost:3000'}/api/auth/callback?next=/settings`,
+  })
+
+  if (error) {
+    if (error.message.toLowerCase().includes('rate limit')) {
+      return { error: 'Too many reset attempts. Please wait a few minutes and try again.' }
+    }
+    return { error: error.message }
+  }
+
+  return { success: true, message: 'Password reset link sent! Check your email inbox.' }
+}
+
+export async function updatePassword(formData: FormData) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user) return { error: 'Not authenticated' }
+
+  const newPassword = formData.get('newPassword') as string
+  const confirmPassword = formData.get('confirmPassword') as string
+
+  if (!newPassword || newPassword.length < 6) {
+    return { error: 'Password must be at least 6 characters' }
+  }
+
+  if (newPassword !== confirmPassword) {
+    return { error: 'Passwords do not match' }
+  }
+
+  const { error } = await supabase.auth.updateUser({ password: newPassword })
+
+  if (error) {
+    return { error: error.message }
+  }
+
+  return { success: true, message: 'Password updated successfully!' }
+}
+
+export async function updateEmail(formData: FormData) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user) return { error: 'Not authenticated' }
+
+  const newEmail = formData.get('newEmail') as string
+
+  if (!newEmail || !newEmail.includes('@')) {
+    return { error: 'Please enter a valid email address' }
+  }
+
+  if (newEmail === user.email) {
+    return { error: 'New email is the same as your current email' }
+  }
+
+  const { error } = await supabase.auth.updateUser({ email: newEmail })
+
+  if (error) {
+    if (error.message.toLowerCase().includes('rate limit')) {
+      return { error: 'Too many email change attempts. Please wait and try again.' }
+    }
+    return { error: error.message }
+  }
+
+  return { success: true, message: 'Confirmation email sent to your new address. Please check your inbox.' }
 }

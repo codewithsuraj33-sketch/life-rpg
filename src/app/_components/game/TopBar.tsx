@@ -15,6 +15,7 @@ import {
   ShoppingBag,
   X,
   Sword,
+  Settings,
 } from 'lucide-react'
 import { cn } from '@/app/_lib/utils'
 
@@ -37,6 +38,7 @@ const navItems = [
   { href: '/shop', label: 'Item Shop', icon: ShoppingBag },
   { href: '/achievements', label: 'Achievements', icon: Trophy },
   { href: '/leaderboard', label: 'Leaderboard', icon: Crown },
+  { href: '/settings', label: 'Settings', icon: Settings },
 ]
 
 export function TopBar({ profile }: { profile: Profile }) {
@@ -107,6 +109,14 @@ export function TopBar({ profile }: { profile: Profile }) {
           >
             <span>🪙</span>
             <span>{profile.coins.toLocaleString()}</span>
+          </Link>
+
+          <Link
+            href="/settings"
+            className="p-2 text-slate-400 hover:text-[var(--cyan)] hover:bg-white/5 transition-all cursor-pointer rounded-xl border border-transparent hover:border-purple-500/30 active:scale-90"
+            title="Settings"
+          >
+            <Settings className="w-4 h-4" />
           </Link>
 
           <form action={signOut}>

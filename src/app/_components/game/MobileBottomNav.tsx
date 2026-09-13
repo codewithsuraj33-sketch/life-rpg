@@ -7,16 +7,16 @@ import {
   Scroll,
   UserCircle,
   ShoppingBag,
-  Crown,
+  Settings,
 } from 'lucide-react'
 import { cn } from '@/app/_lib/utils'
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/quests', label: 'Quests', icon: Scroll },
-  { href: '/character', label: 'Character', icon: UserCircle },
+  { href: '/character', label: 'Hero', icon: UserCircle },
   { href: '/shop', label: 'Shop', icon: ShoppingBag },
-  { href: '/leaderboard', label: 'Ranks', icon: Crown },
+  { href: '/settings', label: 'Settings', icon: Settings },
 ]
 
 export default function MobileBottomNav() {

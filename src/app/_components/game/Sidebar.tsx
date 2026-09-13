@@ -11,6 +11,7 @@ import {
   Sword,
   ShoppingBag,
   Sparkles,
+  Settings,
 } from 'lucide-react'
 import { cn } from '@/app/_lib/utils'
 
@@ -29,6 +30,7 @@ const navItems = [
   { href: '/shop', label: 'Item Shop', icon: ShoppingBag },
   { href: '/achievements', label: 'Achievements', icon: Trophy },
   { href: '/leaderboard', label: 'Leaderboard', icon: Crown },
+  { href: '/settings', label: 'Settings', icon: Settings },
 ]
 
 export function Sidebar({ profile }: { profile: Profile }) {
