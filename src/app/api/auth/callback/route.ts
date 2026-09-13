@@ -10,7 +10,17 @@ export async function GET(request: Request) {
     const supabase = await createClient()
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     if (!error) {
-      return NextResponse.redirect(`${origin}${next}`)
+      const forwardedHost = request.headers.get('x-forwarded-host')
+      const isLocalEnv = process.env.NODE_ENV === 'development'
+
+      const redirectBase = isLocalEnv
+        ? origin
+        : forwardedHost
+        ? `https://${forwardedHost}`
+        : 'https://life-rpg-sooty.vercel.app'
+
+      const targetPath = next.startsWith('/') ? next : `/${next}`
+      return NextResponse.redirect(`${redirectBase}${targetPath}`)
     }
   }
 

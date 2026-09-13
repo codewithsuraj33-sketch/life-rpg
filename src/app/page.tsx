@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { createClient } from "@/app/_lib/supabase/client";
 import {
   Shield,
   Trophy,
@@ -29,6 +30,30 @@ export default function LandingPage() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [activeTab, setActiveTab] = useState<"stats" | "quests">("stats");
+
+  // Auto-redirect to dashboard if user arrives from OAuth callback or already has an active session
+  useEffect(() => {
+    try {
+      const supabase = createClient();
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session?.user) {
+          window.location.replace("/dashboard");
+        }
+      });
+
+      const {
+        data: { subscription },
+      } = supabase.auth.onAuthStateChange((event, session) => {
+        if ((event === "SIGNED_IN" || event === "INITIAL_SESSION") && session?.user) {
+          window.location.replace("/dashboard");
+        }
+      });
+
+      return () => subscription.unsubscribe();
+    } catch (e) {
+      // Fallback
+    }
+  }, []);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();

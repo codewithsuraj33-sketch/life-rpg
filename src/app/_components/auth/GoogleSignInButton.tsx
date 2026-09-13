@@ -18,7 +18,7 @@ export default function GoogleSignInButton({ text = 'Continue with Google' }: { 
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${appOrigin}/api/auth/callback`,
+          redirectTo: `${appOrigin}/api/auth/callback?next=/dashboard`,
         },
       })
 
