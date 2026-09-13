@@ -57,20 +57,20 @@ export function TopBar({ profile }: { profile: Profile }) {
         </button>
 
         {/* Status Bars (HP & XP) */}
-        <div className="flex-1 max-w-sm sm:max-w-lg mx-1 sm:mx-4 min-w-0 flex flex-col justify-center space-y-1.5">
+        <div className="flex-1 max-w-sm sm:max-w-lg mx-1 sm:mx-4 min-w-0 flex flex-col justify-center space-y-2">
           {/* Bar 1: HP */}
           <div className="space-y-0.5">
             <div className="flex items-center justify-between text-[10px] sm:text-xs font-bold">
-              <span className="text-rose-400 flex items-center gap-1">
+              <span className="text-rose-400 flex items-center gap-1" style={{ textShadow: '0 0 8px rgba(244,63,94,0.4)' }}>
                 ❤️ HP {profile.current_hp ?? 100}/{profile.max_hp ?? 100}
               </span>
-              <span className="text-[var(--purple-light)]">
+              <span className="text-purple-300 font-mono text-[11px]">
                 Lv.{profile.level} {profile.title}
               </span>
             </div>
-            <div className="stat-bar h-1.5 sm:h-2 bg-black/50">
+            <div className="h-1.5 sm:h-2 bg-black/70 rounded-full overflow-hidden border border-rose-500/30">
               <div
-                className="stat-bar-fill bg-gradient-to-r from-rose-600 to-rose-400"
+                className="h-full rounded-full bg-gradient-to-r from-red-600 via-rose-500 to-pink-500 transition-all duration-500 shadow-[0_0_8px_rgba(244,63,94,0.5)]"
                 style={{
                   width: `${Math.max(
                     0,
@@ -84,14 +84,14 @@ export function TopBar({ profile }: { profile: Profile }) {
           {/* Bar 2: XP */}
           <div className="space-y-0.5">
             <div className="flex items-center justify-between text-[9px] sm:text-[10px] font-mono">
-              <span className="text-[var(--text-secondary)]">Experience</span>
-              <span className="text-[var(--gold)] font-bold">
+              <span className="text-slate-300">Level Experience</span>
+              <span className="text-amber-300 font-bold">
                 {currentXP} / {xpForNextLevel} XP ({Math.round(progress * 100)}%)
               </span>
             </div>
-            <div className="xp-bar h-1.5 sm:h-2 bg-black/50">
+            <div className="h-1.5 sm:h-2 bg-black/70 rounded-full overflow-hidden border border-purple-500/30">
               <div
-                className="xp-bar-fill"
+                className="h-full rounded-full bg-gradient-to-r from-purple-500 via-[var(--cyan)] to-amber-400 transition-all duration-700 shadow-[0_0_8px_rgba(245,166,35,0.5)]"
                 style={{ width: `${Math.min(100, Math.max(0, progress * 100))}%` }}
               />
             </div>
@@ -99,10 +99,10 @@ export function TopBar({ profile }: { profile: Profile }) {
         </div>
 
         {/* Coins + Logout */}
-        <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+        <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
           <Link
             href="/shop"
-            className="flex items-center gap-1.5 text-[var(--gold)] font-mono font-bold text-xs sm:text-sm bg-amber-500/10 border border-amber-500/30 px-3 py-1.5 rounded-xl hover:bg-amber-500/15 transition-all shadow-sm shadow-amber-500/10"
+            className="flex items-center gap-1.5 text-amber-300 font-mono font-bold text-xs sm:text-sm bg-amber-500/15 border border-amber-500/40 px-3 py-1.5 rounded-xl hover:bg-amber-500/25 hover:border-amber-400 hover:shadow-[0_0_15px_rgba(245,166,35,0.25)] transition-all"
             title="Open Shop"
           >
             <span>🪙</span>
@@ -112,7 +112,7 @@ export function TopBar({ profile }: { profile: Profile }) {
           <form action={signOut}>
             <button
               type="submit"
-              className="p-2 text-[var(--text-muted)] hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer rounded-xl border border-transparent hover:border-rose-500/20"
+              className="p-2 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer rounded-xl border border-transparent hover:border-rose-500/30"
               title="Sign Out"
             >
               <LogOut className="w-4 h-4" />

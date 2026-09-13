@@ -79,35 +79,35 @@ export function CharacterClient({
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Title */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-black tracking-tight flex items-center gap-2.5">
+        <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white flex items-center gap-2.5">
           <span>🛡️</span> Character Sheet
         </h1>
-        <p className="text-sm text-muted mt-1">
-          Review your level, titles, and attribute specializations.
+        <p className="text-sm text-slate-300 mt-1">
+          Review your hero level, unlock prestigious titles, and customize your persona.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Left Col: Avatar & Profile Customization */}
         <div className="md:col-span-1 space-y-6">
-          <Card glow>
+          <Card glow className="border-purple-500/35 bg-[#0d0d26]/95 shadow-xl">
             <form onSubmit={handleSave} className="space-y-4 text-center">
               {/* Avatar Preview */}
-              <div className="w-24 h-24 mx-auto rounded-2xl bg-[var(--bg-primary)] border-2 border-amber-500/40 flex items-center justify-center text-5xl shadow-lg">
+              <div className="w-24 h-24 mx-auto rounded-3xl bg-[var(--bg-primary)] border-2 border-purple-500/50 shadow-[0_0_20px_rgba(139,92,246,0.3)] flex items-center justify-center text-5xl animate-float">
                 {selectedAvatar}
               </div>
 
               <div>
-                <h3 className="font-bold text-lg">{username}</h3>
-                <Badge variant="gold" className="mt-1">
+                <h3 className="font-extrabold text-lg text-white">{username}</h3>
+                <Badge variant="gold" className="mt-1 font-mono font-bold shadow-sm shadow-amber-500/20">
                   Lv.{profile.level} {profile.title}
                 </Badge>
               </div>
 
               {/* Avatar Picker */}
               <div className="pt-2 text-left">
-                <label className="block text-xs font-semibold text-muted mb-2 text-center">
-                  Choose Your Hero Class/Avatar
+                <label className="block text-xs font-bold text-slate-300 mb-2 text-center uppercase tracking-wider">
+                  Choose Class Avatar
                 </label>
                 <div className="grid grid-cols-5 gap-2">
                   {AVATAR_OPTIONS.map((emoji) => (
@@ -115,10 +115,10 @@ export function CharacterClient({
                       key={emoji}
                       type="button"
                       onClick={() => setSelectedAvatar(emoji)}
-                      className={`text-2xl p-1.5 rounded-lg border transition-all cursor-pointer ${
+                      className={`text-2xl p-2 rounded-xl border transition-all cursor-pointer ${
                         selectedAvatar === emoji
-                          ? 'border-amber-500 bg-amber-500/20 scale-105'
-                          : 'border-[var(--border-default)] hover:border-amber-500/30'
+                          ? 'border-cyan-400 bg-cyan-500/20 shadow-[0_0_12px_rgba(34,211,238,0.4)] scale-110'
+                          : 'border-white/10 bg-[#090920] hover:border-purple-500/50 hover:scale-105'
                       }`}
                     >
                       {emoji}
@@ -129,20 +129,20 @@ export function CharacterClient({
 
               {/* Username Input */}
               <div className="text-left pt-2">
-                <label className="block text-xs font-semibold text-muted mb-1">
-                  Hero Name
+                <label className="block text-xs font-bold text-slate-300 mb-1.5 uppercase tracking-wider">
+                  Hero Moniker
                 </label>
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-[var(--border-default)] bg-[var(--bg-primary)] text-sm focus:outline-none focus:border-amber-500/50"
+                  className="input text-sm py-2 px-3 font-semibold"
                   required
                 />
               </div>
 
               {message && (
-                <p className={`text-xs ${message.startsWith('Error') ? 'text-rose-400' : 'text-emerald-400'}`}>
+                <p className={`text-xs font-bold ${message.startsWith('Error') ? 'text-rose-400' : 'text-emerald-400'}`}>
                   {message}
                 </p>
               )}
@@ -150,28 +150,28 @@ export function CharacterClient({
               <button
                 type="submit"
                 disabled={saving}
-                className="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-black font-semibold text-xs transition-colors cursor-pointer disabled:opacity-50"
+                className="btn-primary w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-extrabold shadow-md shadow-purple-600/30 cursor-pointer disabled:opacity-50"
               >
                 <Save className="w-3.5 h-3.5" />
-                {saving ? 'Saving...' : 'Save Character'}
+                {saving ? 'Saving...' : 'Save Character Sheet'}
               </button>
             </form>
           </Card>
 
           {/* Wallet / Level Stats */}
-          <Card>
+          <Card className="border-purple-500/25 bg-[#0d0d26]/95 shadow-md">
             <div className="space-y-3">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted flex items-center gap-2">
-                  <Coins className="w-4 h-4 text-amber-400" /> Gold Coins
+                <span className="text-slate-300 flex items-center gap-2 font-semibold">
+                  <Coins className="w-4 h-4 text-amber-400" /> Gold Bounty
                 </span>
-                <span className="font-mono font-bold text-amber-400">{profile.coins}</span>
+                <span className="font-mono font-black text-amber-300">{profile.coins.toLocaleString()}</span>
               </div>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-purple-400" /> Total XP
+                <span className="text-slate-300 flex items-center gap-2 font-semibold">
+                  <Sparkles className="w-4 h-4 text-purple-400" /> Lifetime XP
                 </span>
-                <span className="font-mono font-bold">{profile.xp}</span>
+                <span className="font-mono font-black text-purple-300">{profile.xp.toLocaleString()}</span>
               </div>
             </div>
           </Card>
@@ -183,52 +183,72 @@ export function CharacterClient({
         {/* Right 2 Cols: Detailed Stats & Title Progression */}
         <div className="md:col-span-2 space-y-6">
           {/* XP Progress Card */}
-          <Card>
+          <Card className="border-purple-500/30 bg-[#0d0d26]/95 shadow-xl">
             <CardHeader>
-              <CardTitle>
+              <CardTitle className="text-white">
                 <Shield className="w-5 h-5 text-amber-400" />
-                Level Progress
+                Level Experience & Mastery
               </CardTitle>
-              <span className="text-xs font-mono text-muted">
+              <span className="text-xs font-mono font-bold text-amber-300">
                 {currentXP} / {xpForNextLevel} XP
               </span>
             </CardHeader>
-            <ProgressBar progress={progress} className="h-3" />
-            <p className="text-xs text-muted mt-2">
-              Earn {Math.max(xpForNextLevel - currentXP, 0)} more XP from quests to advance to{' '}
-              <span className="text-amber-400 font-semibold">Level {profile.level + 1}</span>.
+            <div className="w-full h-3.5 bg-black/70 rounded-full overflow-hidden border border-purple-500/40 p-0.5 shadow-inner">
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-purple-500 via-[var(--cyan)] to-amber-400 transition-all duration-700 relative overflow-hidden"
+                style={{ width: `${Math.min(100, Math.max(0, progress * 100))}%` }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
+              </div>
+            </div>
+            <p className="text-xs text-slate-300 mt-2.5">
+              Conquer daily missions to earn <span className="text-amber-300 font-bold font-mono">{Math.max(xpForNextLevel - currentXP, 0)} more XP</span> and ascend to{' '}
+              <span className="text-[var(--cyan)] font-extrabold">Level {profile.level + 1}</span>.
             </p>
           </Card>
 
           {/* Core Attribute Bars */}
-          <Card>
+          <Card className="border-purple-500/30 bg-[#0d0d26]/95 shadow-xl">
             <CardHeader>
-              <CardTitle>
-                <TrendingUp className="w-5 h-5 text-amber-400" />
-                Attributes & Skills
+              <CardTitle className="text-white">
+                <TrendingUp className="w-5 h-5 text-[var(--cyan)]" />
+                Specialized Attributes
               </CardTitle>
             </CardHeader>
 
             <div className="space-y-4">
               {stats.map((stat) => {
                 const statProgress = Math.min((stat.xp % 100) / 100, 1)
+                const statColor = stat.name.toLowerCase().includes('strength')
+                  ? '#f43f5e'
+                  : stat.name.toLowerCase().includes('intellect')
+                  ? '#22d3ee'
+                  : stat.name.toLowerCase().includes('discipline')
+                  ? '#f5a623'
+                  : '#a78bfa'
+
                 return (
-                  <div key={stat.id} className="space-y-1.5">
+                  <div key={stat.id} className="p-3.5 rounded-xl border border-white/5 bg-[#090920] space-y-2">
                     <div className="flex items-center justify-between text-sm">
                       <div className="flex items-center gap-2">
-                        <span className="text-lg">{stat.icon}</span>
-                        <span className="font-semibold">{stat.name}</span>
+                        <span className="text-xl">{stat.icon}</span>
+                        <span className="font-bold text-white">{stat.name}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-muted font-mono">{stat.xp} XP</span>
-                        <Badge variant="gold">Lv.{stat.level}</Badge>
+                        <span className="text-xs text-slate-400 font-mono font-semibold">{stat.xp} XP</span>
+                        <Badge variant="gold" className="font-mono font-bold text-[11px]">Lv.{stat.level}</Badge>
                       </div>
                     </div>
-                    <ProgressBar
-                      progress={statProgress}
-                      color={stat.color}
-                      className="h-2"
-                    />
+                    <div className="w-full h-2 bg-black/60 rounded-full overflow-hidden border border-white/10">
+                      <div
+                        className="h-full rounded-full transition-all duration-500"
+                        style={{
+                          width: `${Math.max(statProgress * 100, 8)}%`,
+                          backgroundColor: statColor,
+                          boxShadow: `0 0 8px ${statColor}60`,
+                        }}
+                      />
+                    </div>
                   </div>
                 )
               })}
@@ -236,27 +256,29 @@ export function CharacterClient({
           </Card>
 
           {/* Titles Roadmap */}
-          <Card>
+          <Card className="border-purple-500/30 bg-[#0d0d26]/95 shadow-xl">
             <CardHeader>
-              <CardTitle>
-                <span>👑</span> Titles Progression
+              <CardTitle className="text-white">
+                <span>👑</span> Titles & Prestige Progression
               </CardTitle>
             </CardHeader>
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-center">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 text-center">
               {Object.entries(TITLES).map(([lvlStr, title]) => {
                 const reqLevel = Number(lvlStr)
                 const isUnlocked = profile.level >= reqLevel
                 return (
                   <div
                     key={title}
-                    className={`p-2.5 rounded-lg border text-xs transition-all ${
+                    className={`p-3 rounded-xl border text-xs transition-all ${
                       isUnlocked
-                        ? 'border-amber-500/40 bg-amber-500/10 text-amber-300 font-medium'
-                        : 'border-[var(--border-default)] bg-[var(--bg-secondary)]/40 text-dim'
+                        ? 'border-amber-500/50 bg-gradient-to-b from-amber-500/20 to-amber-500/5 text-amber-300 font-bold shadow-[0_0_12px_rgba(245,166,35,0.15)]'
+                        : 'border-white/5 bg-[#090920] text-slate-500 opacity-60'
                     }`}
                   >
-                    <p className="font-bold">{title}</p>
-                    <p className="text-[10px] mt-0.5 opacity-80">Lv. {reqLevel}+</p>
+                    <p className="font-bold truncate">{title}</p>
+                    <p className="text-[10px] mt-1 font-mono font-semibold">
+                      {isUnlocked ? '✓ Unlocked' : `Lv. ${reqLevel}+`}
+                    </p>
                   </div>
                 )
               })}

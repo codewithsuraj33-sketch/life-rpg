@@ -100,64 +100,63 @@ export function QuestCard({ quest, stats = [] }: QuestCardProps) {
 
   return (
     <>
-      <div className="relative group rounded-xl border border-[var(--border-default)] bg-[var(--bg-card)] p-4 sm:p-5 backdrop-blur-sm transition-all hover:border-[var(--border-hover)] shadow-[var(--shadow-card)]">
+      <div className={`rpg-sheen relative group rounded-2xl border ${quest.completed ? 'border-purple-500/10 bg-[#0a0a20]/70 opacity-75' : 'border-purple-500/25 bg-[#0e0e2a]/95 hover:border-purple-500/60 hover:shadow-[0_0_20px_rgba(139,92,246,0.18)]'} p-4 sm:p-5 backdrop-blur-md transition-all shadow-md`}>
         <div className="flex items-start justify-between gap-4">
-          {/* Left Side removed - Checkbox is gone */}
-
           {/* Middle: Content */}
           <div className="flex-1 min-w-0">
-            <div className="flex flex-wrap items-center gap-2 mb-1">
+            <div className="flex flex-wrap items-center gap-2 mb-1.5">
               <h4
-                className={`font-semibold text-sm sm:text-base truncate ${
-                  quest.completed ? 'line-through text-muted' : 'text-[var(--text-primary)]'
+                className={`font-bold text-sm sm:text-base truncate ${
+                  quest.completed ? 'line-through text-slate-400' : 'text-white'
                 }`}
               >
                 {quest.title}
               </h4>
 
               {quest.stat && (
-                <span className="text-xs px-2 py-0.5 rounded bg-[var(--bg-secondary)] text-muted border border-[var(--border-default)]">
-                  {quest.stat.icon} {quest.stat.name}
+                <span className="text-[11px] font-semibold px-2 py-0.5 rounded-lg bg-purple-500/10 text-purple-300 border border-purple-500/30 flex items-center gap-1">
+                  <span>{quest.stat.icon}</span> <span>{quest.stat.name}</span>
                 </span>
               )}
             </div>
 
             {quest.description && (
-              <p className="text-xs text-muted line-clamp-2 mb-3">{quest.description}</p>
+              <p className="text-xs text-slate-300 line-clamp-2 mb-3.5 leading-relaxed">{quest.description}</p>
             )}
 
             {/* Badges and Rewards */}
             <div className="flex flex-wrap items-center gap-2 text-xs">
               <span
-                className="px-2 py-0.5 rounded text-[11px] font-medium"
+                className="px-2.5 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wider"
                 style={{
-                  backgroundColor: `${diffInfo.color}15`,
+                  backgroundColor: `${diffInfo.color}18`,
                   color: diffInfo.color,
-                  border: `1px solid ${diffInfo.color}30`,
+                  border: `1px solid ${diffInfo.color}45`,
+                  boxShadow: `0 0 8px ${diffInfo.color}25`,
                 }}
               >
                 {diffInfo.emoji} {diffInfo.label}
               </span>
 
               {quest.is_negative ? (
-                <span className="text-rose-400 font-medium flex items-center gap-1 font-mono">
+                <span className="text-rose-400 font-bold flex items-center gap-1 font-mono text-[11px] bg-rose-500/10 px-2 py-0.5 rounded-md border border-rose-500/30">
                   <Skull className="w-3 h-3" /> -{[10, 20, 30, 50][['easy','medium','hard','legendary'].indexOf(quest.difficulty) || 1]} HP
                 </span>
               ) : (
                 <>
-                  <span className="text-amber-400 font-medium flex items-center gap-1 font-mono">
-                    <Sparkles className="w-3 h-3" /> +{quest.xp_reward} XP
+                  <span className="text-purple-300 font-bold flex items-center gap-1 font-mono text-[11px] bg-purple-500/10 px-2 py-0.5 rounded-md border border-purple-500/30">
+                    <Sparkles className="w-3 h-3 text-[var(--cyan)]" /> +{quest.xp_reward} XP
                   </span>
 
-                  <span className="text-amber-300 font-medium flex items-center gap-1 font-mono">
-                    <Coins className="w-3 h-3" /> +{quest.coin_reward}
+                  <span className="text-amber-300 font-bold flex items-center gap-1 font-mono text-[11px] bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/30">
+                    <Coins className="w-3 h-3" /> +{quest.coin_reward} Gold
                   </span>
                 </>
               )}
 
               {quest.streak > 0 && (
-                <span className="text-orange-400 font-medium flex items-center gap-1 font-semibold">
-                  <Flame className="w-3.5 h-3.5" /> {quest.streak} streak
+                <span className="text-orange-400 font-bold flex items-center gap-1 text-[11px] bg-orange-500/10 px-2 py-0.5 rounded-md border border-orange-500/30">
+                  <Flame className="w-3.5 h-3.5 animate-pulse" /> {quest.streak} Streak
                 </span>
               )}
             </div>
@@ -170,14 +169,14 @@ export function QuestCard({ quest, stats = [] }: QuestCardProps) {
                 <button
                   onClick={handleComplete}
                   disabled={loading}
-                  className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[var(--purple-bg)] text-[var(--purple)] border border-[var(--border-default)] hover:border-[var(--purple)] hover:shadow-[var(--shadow-purple)] transition-all flex items-center gap-1 cursor-pointer"
+                  className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[var(--purple)] to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-md shadow-purple-600/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
                   title="Complete Quest"
                 >
                   <Check className="w-3.5 h-3.5" /> Complete
                 </button>
                 <button
                   onClick={() => setIsEditOpen(true)}
-                  className="text-muted hover:text-amber-400 transition-all p-1.5 cursor-pointer rounded-lg hover:bg-[var(--bg-secondary)] border border-transparent hover:border-[var(--border-default)]"
+                  className="text-slate-400 hover:text-amber-300 transition-all p-1.5 cursor-pointer rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10"
                   title="Edit quest"
                   aria-label="Edit quest"
                 >
@@ -187,7 +186,7 @@ export function QuestCard({ quest, stats = [] }: QuestCardProps) {
             )}
             <button
               onClick={handleDelete}
-              className="text-muted hover:text-rose-400 transition-all p-1.5 cursor-pointer rounded-lg hover:bg-[var(--bg-secondary)] border border-transparent hover:border-[var(--border-default)]"
+              className="text-slate-400 hover:text-rose-400 transition-all p-1.5 cursor-pointer rounded-lg hover:bg-white/5 border border-transparent hover:border-rose-500/30"
               title="Abandon quest"
               aria-label="Abandon quest"
             >

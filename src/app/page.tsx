@@ -177,103 +177,103 @@ export default function LandingPage() {
       {/* =========================================================================
           SECTION 02: "SMALL STEPS, BIG PROGRESS" (Feature Grid)
           ========================================================================= */}
-      <section id="features" className="py-20 sm:py-28 relative border-t border-[var(--border-default)]/50 bg-[#06061a]">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10">
-          <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+      <section id="features" className="py-16 sm:py-28 relative border-t border-[var(--border-default)]/50 bg-[#06061a]">
+        <div className="max-w-7xl mx-auto px-5 sm:px-10">
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 space-y-3">
             <ScrollReveal animation="up">
               <span className="section-label">
                 <Zap className="w-3.5 h-3.5 text-[var(--gold)]" /> Small Steps
               </span>
             </ScrollReveal>
             <ScrollReveal animation="up" delay={100}>
-              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white neon-purple">
                 Big Progress
               </h2>
             </ScrollReveal>
             <ScrollReveal animation="up" delay={200}>
-              <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">
+              <p className="text-xs sm:text-sm md:text-base text-[var(--text-secondary)] leading-relaxed">
                 Every task you complete gives you real XP, boosts your real-life stats, and brings
                 you closer to the ultimate version of yourself.
               </p>
             </ScrollReveal>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             <ScrollReveal animation="up" delay={100}>
-              <div className="glass-card p-6 rounded-2xl h-full flex flex-col justify-between hover-lift group border border-purple-500/15 hover:border-purple-500/40">
+              <div className="glass-card glass-card-neon p-5 sm:p-6 rounded-2xl h-full flex flex-col justify-between hover-lift group border border-purple-500/15 hover:border-cyan-500/40">
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                    <CheckCircle2 className="w-6 h-6 text-[var(--cyan)]" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-center mb-4 sm:mb-5 group-hover:scale-110 transition-transform">
+                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--cyan)]" />
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[var(--cyan)] transition-colors">
+                  <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-[var(--cyan)] transition-colors">
                     Daily Quests
                   </h3>
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
                     Turn mundane routines and obligations into rewarding mission objectives. Clear
                     your board every day to build unstoppable momentum.
                   </p>
                 </div>
-                <div className="mt-6 pt-4 border-t border-white/5 text-xs font-semibold text-[var(--cyan)] flex items-center gap-1">
+                <div className="mt-5 sm:mt-6 pt-3 sm:pt-4 border-t border-white/5 text-xs font-semibold text-[var(--cyan)] flex items-center gap-1 neon-cyan">
                   Meaningful Habits <ChevronRight className="w-3.5 h-3.5" />
                 </div>
               </div>
             </ScrollReveal>
 
             <ScrollReveal animation="up" delay={200}>
-              <div className="glass-card p-6 rounded-2xl h-full flex flex-col justify-between hover-lift group border border-purple-500/15 hover:border-purple-500/40">
+              <div className="glass-card glass-card-neon p-5 sm:p-6 rounded-2xl h-full flex flex-col justify-between hover-lift group border border-purple-500/15 hover:border-purple-500/40">
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/25 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                    <Sparkles className="w-6 h-6 text-[var(--purple-light)]" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-purple-500/10 border border-purple-500/25 flex items-center justify-center mb-4 sm:mb-5 group-hover:scale-110 transition-transform">
+                    <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--purple-light)]" />
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[var(--purple-light)] transition-colors">
+                  <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-[var(--purple-light)] transition-colors">
                     XP & Levels
                   </h3>
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
                     Experience non-linear progression. As you tackle harder challenges, unlock
                     higher titles, prestige status, and legendary badges.
                   </p>
                 </div>
-                <div className="mt-6 pt-4 border-t border-white/5 text-xs font-semibold text-[var(--purple-light)] flex items-center gap-1">
+                <div className="mt-5 sm:mt-6 pt-3 sm:pt-4 border-t border-white/5 text-xs font-semibold text-[var(--purple-light)] flex items-center gap-1 neon-purple">
                   Real Growth Daily <ChevronRight className="w-3.5 h-3.5" />
                 </div>
               </div>
             </ScrollReveal>
 
             <ScrollReveal animation="up" delay={300}>
-              <div className="glass-card p-6 rounded-2xl h-full flex flex-col justify-between hover-lift group border border-purple-500/15 hover:border-purple-500/40">
+              <div className="glass-card glass-card-neon p-5 sm:p-6 rounded-2xl h-full flex flex-col justify-between hover-lift group border border-purple-500/15 hover:border-amber-500/40">
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/25 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                    <Flame className="w-6 h-6 text-[var(--gold)]" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-amber-500/10 border border-amber-500/25 flex items-center justify-center mb-4 sm:mb-5 group-hover:scale-110 transition-transform">
+                    <Flame className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--gold)]" />
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[var(--gold)] transition-colors">
+                  <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-[var(--gold)] transition-colors">
                     Streaks & Shields
                   </h3>
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
                     Maintain active streaks for bonus XP multipliers. Protect your habit streak with
                     streak shield items during busy or rest days.
                   </p>
                 </div>
-                <div className="mt-6 pt-4 border-t border-white/5 text-xs font-semibold text-[var(--gold)] flex items-center gap-1">
+                <div className="mt-5 sm:mt-6 pt-3 sm:pt-4 border-t border-white/5 text-xs font-semibold text-[var(--gold)] flex items-center gap-1 neon-gold">
                   Compound Consistency <ChevronRight className="w-3.5 h-3.5" />
                 </div>
               </div>
             </ScrollReveal>
 
             <ScrollReveal animation="up" delay={400}>
-              <div className="glass-card p-6 rounded-2xl h-full flex flex-col justify-between hover-lift group border border-purple-500/15 hover:border-purple-500/40">
+              <div className="glass-card glass-card-neon p-5 sm:p-6 rounded-2xl h-full flex flex-col justify-between hover-lift group border border-purple-500/15 hover:border-emerald-500/40">
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                    <Gift className="w-6 h-6 text-emerald-400" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center mb-4 sm:mb-5 group-hover:scale-110 transition-transform">
+                    <Gift className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400" />
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">
+                  <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">
                     Shop & Rewards
                   </h3>
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
                     Earn gold currency and spend it in the Bazaar on real rewards (e.g. guilt-free
                     gaming sessions) or avatar customization items.
                   </p>
                 </div>
-                <div className="mt-6 pt-4 border-t border-white/5 text-xs font-semibold text-emerald-400 flex items-center gap-1">
+                <div className="mt-5 sm:mt-6 pt-3 sm:pt-4 border-t border-white/5 text-xs font-semibold text-emerald-400 flex items-center gap-1" style={{ textShadow: '0 0 7px rgba(52, 211, 153, 0.6), 0 0 20px rgba(52, 211, 153, 0.3)' }}>
                   Real Motivation <ChevronRight className="w-3.5 h-3.5" />
                 </div>
               </div>
@@ -285,11 +285,11 @@ export default function LandingPage() {
       {/* =========================================================================
           SECTION 03: "TRACK. GROW. EVOLVE." (Character Progression Deep Dive)
           ========================================================================= */}
-      <section id="journey" className="py-20 sm:py-28 relative border-t border-[var(--border-default)]/50 bg-gradient-to-b from-[#06061a] via-purple-950/20 to-[#06061a]">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <section id="journey" className="py-16 sm:py-28 relative border-t border-[var(--border-default)]/50 bg-gradient-to-b from-[#06061a] via-purple-950/20 to-[#06061a]">
+        <div className="max-w-7xl mx-auto px-5 sm:px-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
             {/* Left Description */}
-            <div className="lg:col-span-6 space-y-6">
+            <div className="lg:col-span-6 space-y-5 sm:space-y-6">
               <ScrollReveal animation="left">
                 <span className="section-label">
                   <Shield className="w-3.5 h-3.5 text-[var(--cyan)]" /> Your Character
@@ -297,14 +297,14 @@ export default function LandingPage() {
               </ScrollReveal>
 
               <ScrollReveal animation="left" delay={100}>
-                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
                   Track. Grow. <br />
-                  <span className="text-[var(--cyan)]">Evolve.</span>
+                  <span className="text-[var(--cyan)] neon-cyan">Evolve.</span>
                 </h2>
               </ScrollReveal>
 
               <ScrollReveal animation="left" delay={200}>
-                <p className="text-base text-[var(--text-secondary)] leading-relaxed">
+                <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">
                   You are not just crossing tasks off a list; you are shaping an RPG character with
                   real attributes. Strength increases when you hit the gym, Intellect levels up when
                   you study, Discipline grows from hard routines, and Charisma blooms through
@@ -361,7 +361,7 @@ export default function LandingPage() {
             {/* Right Character Evolution Card */}
             <div className="lg:col-span-6">
               <ScrollReveal animation="right" delay={200}>
-                <div className="glass-card p-6 sm:p-8 rounded-3xl border border-purple-500/25 relative overflow-hidden shadow-2xl">
+                <div className="glass-card glass-card-neon p-5 sm:p-8 rounded-3xl border border-purple-500/25 relative overflow-hidden shadow-2xl neon-border">
                   <div className="flex items-center justify-between pb-6 border-b border-white/10">
                     <div className="flex items-center gap-3">
                       <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center text-3xl shadow-lg shadow-purple-500/20">
@@ -511,31 +511,31 @@ export default function LandingPage() {
       {/* =========================================================================
           SECTION 04: "REWARDS FOR YOUR JOURNEY" (Bazaar Item Showcase)
           ========================================================================= */}
-      <section id="rewards" className="py-20 sm:py-28 relative border-t border-[var(--border-default)]/50 bg-[#06061a]">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10">
-          <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+      <section id="rewards" className="py-16 sm:py-28 relative border-t border-[var(--border-default)]/50 bg-[#06061a]">
+        <div className="max-w-7xl mx-auto px-5 sm:px-10">
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 space-y-3">
             <ScrollReveal animation="up">
               <span className="section-label">
                 <Coins className="w-3.5 h-3.5 text-[var(--gold)]" /> Unlock Exclusive Items
               </span>
             </ScrollReveal>
             <ScrollReveal animation="up" delay={100}>
-              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white neon-gold">
                 Rewards for Your Journey
               </h2>
             </ScrollReveal>
             <ScrollReveal animation="up" delay={200}>
-              <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">
+              <p className="text-xs sm:text-sm md:text-base text-[var(--text-secondary)] leading-relaxed">
                 Spend your hard-earned gold coins on real treats, rare virtual badges, custom profile
                 auras, and guild perks. Make the journey truly your own.
               </p>
             </ScrollReveal>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-8">
             {/* Item 1: Epic Cloak */}
             <ScrollReveal animation="up" delay={100}>
-              <div className="glass-card rounded-2xl p-6 border border-purple-500/30 hover:border-purple-400 transition-all hover-lift relative group flex flex-col justify-between">
+              <div className="glass-card glass-card-neon rounded-2xl p-5 sm:p-6 border border-purple-500/30 hover:border-purple-400 transition-all hover-lift relative group flex flex-col justify-between">
                 <div>
                   <div className="h-44 rounded-xl bg-gradient-to-b from-purple-900/30 to-purple-950/70 border border-purple-500/20 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-lg group-hover:shadow-purple-500/20 transition-all">
                     <div className="text-6xl group-hover:scale-110 transition-transform duration-300">
@@ -571,7 +571,7 @@ export default function LandingPage() {
 
             {/* Item 2: Rare Blade */}
             <ScrollReveal animation="up" delay={200}>
-              <div className="glass-card rounded-2xl p-6 border border-cyan-500/30 hover:border-cyan-400 transition-all hover-lift relative group flex flex-col justify-between">
+              <div className="glass-card glass-card-neon rounded-2xl p-5 sm:p-6 border border-cyan-500/30 hover:border-cyan-400 transition-all hover-lift relative group flex flex-col justify-between">
                 <div>
                   <div className="h-44 rounded-xl bg-gradient-to-b from-cyan-900/30 to-cyan-950/70 border border-cyan-500/20 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-lg group-hover:shadow-cyan-500/20 transition-all">
                     <div className="text-6xl group-hover:scale-110 transition-transform duration-300">
@@ -607,7 +607,7 @@ export default function LandingPage() {
 
             {/* Item 3: Legendary Wings */}
             <ScrollReveal animation="up" delay={300}>
-              <div className="glass-card rounded-2xl p-6 border border-amber-500/30 hover:border-amber-400 transition-all hover-lift relative group flex flex-col justify-between">
+              <div className="glass-card glass-card-neon rounded-2xl p-5 sm:p-6 border border-amber-500/30 hover:border-amber-400 transition-all hover-lift relative group flex flex-col justify-between">
                 <div>
                   <div className="h-44 rounded-xl bg-gradient-to-b from-amber-900/20 to-purple-950/70 border border-amber-500/20 flex flex-col items-center justify-center relative overflow-hidden group-hover:shadow-lg group-hover:shadow-amber-500/20 transition-all">
                     <div className="text-6xl group-hover:scale-110 transition-transform duration-300">
@@ -656,11 +656,11 @@ export default function LandingPage() {
       {/* =========================================================================
           SECTION 05: "GROW TOGETHER" (Community Leaderboard Preview)
           ========================================================================= */}
-      <section id="community" className="py-20 sm:py-28 relative border-t border-[var(--border-default)]/50 bg-gradient-to-b from-[#06061a] via-cyan-950/15 to-[#06061a]">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <section id="community" className="py-16 sm:py-28 relative border-t border-[var(--border-default)]/50 bg-gradient-to-b from-[#06061a] via-cyan-950/15 to-[#06061a]">
+        <div className="max-w-7xl mx-auto px-5 sm:px-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
             {/* Left Copy */}
-            <div className="lg:col-span-5 space-y-6">
+            <div className="lg:col-span-5 space-y-5 sm:space-y-6">
               <ScrollReveal animation="left">
                 <span className="section-label">
                   <Users className="w-3.5 h-3.5 text-[var(--purple-light)]" /> Global Realm
@@ -668,13 +668,13 @@ export default function LandingPage() {
               </ScrollReveal>
 
               <ScrollReveal animation="left" delay={100}>
-                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight neon-purple">
                   Grow Together.
                 </h2>
               </ScrollReveal>
 
               <ScrollReveal animation="left" delay={200}>
-                <p className="text-base text-[var(--text-secondary)] leading-relaxed">
+                <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">
                   Be part of a thriving guild of builders, students, dreamers, and athletes.
                   Compete on weekly leaderboards, share milestone accomplishments, and hold each
                   other accountable.
@@ -706,7 +706,7 @@ export default function LandingPage() {
             {/* Right Top Adventurers Table */}
             <div className="lg:col-span-7">
               <ScrollReveal animation="right" delay={200}>
-                <div className="glass-card rounded-3xl p-6 sm:p-8 border border-purple-500/20 shadow-2xl space-y-4">
+                <div className="glass-card glass-card-neon rounded-3xl p-5 sm:p-8 border border-purple-500/20 shadow-2xl space-y-4 neon-border">
                   <div className="flex items-center justify-between pb-3 border-b border-white/10">
                     <div className="flex items-center gap-2">
                       <Trophy className="w-5 h-5 text-[var(--gold)]" />

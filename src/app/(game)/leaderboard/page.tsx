@@ -99,46 +99,46 @@ export default async function LeaderboardPage({
 
       {/* Top 3 Podium (if at least 3 players exist) */}
       {topPlayers && topPlayers.length >= 3 && (
-        <div className="grid grid-cols-3 gap-2 sm:gap-6 pt-4 sm:pt-6 pb-2 items-end">
-          {/* Rank 2 */}
-          <div className="box-hover flex flex-col items-center p-2.5 sm:p-4 rounded-xl border border-slate-400/20 bg-[var(--bg-card)] text-center relative order-1">
-            <span className="text-xl sm:text-2xl mb-1">🥈</span>
-            <div className="text-2xl sm:text-4xl p-1.5 sm:p-2 rounded-xl sm:rounded-2xl bg-[var(--bg-primary)] border border-slate-400/30 mb-1.5 sm:mb-2">
+        <div className="grid grid-cols-3 gap-2.5 sm:gap-6 pt-4 sm:pt-6 pb-2 items-end">
+          {/* Rank 2 (Silver) */}
+          <div className="rpg-sheen flex flex-col items-center p-3 sm:p-5 rounded-2xl border border-slate-400/30 bg-[#0d0d28] text-center relative order-1 shadow-[0_0_15px_rgba(203,213,225,0.1)]">
+            <span className="text-2xl sm:text-3xl mb-1">🥈</span>
+            <div className="text-3xl sm:text-4xl p-2 sm:p-2.5 rounded-2xl bg-[var(--bg-primary)] border-2 border-slate-400/40 mb-2 shadow-inner">
               {topPlayers[1].avatar_url || '🧙'}
             </div>
-            <p className="font-bold text-xs sm:text-sm truncate max-w-full">{topPlayers[1].username}</p>
-            <p className="text-[11px] sm:text-xs text-slate-300 font-mono">Lv.{topPlayers[1].level}</p>
-            <p className="text-[10px] sm:text-[11px] text-muted">{topPlayers[1].xp} XP</p>
+            <p className="font-extrabold text-xs sm:text-sm text-white truncate max-w-full">{topPlayers[1].username}</p>
+            <p className="text-xs text-slate-300 font-mono font-bold mt-0.5">Lv.{topPlayers[1].level}</p>
+            <p className="text-[10px] sm:text-xs text-purple-300 font-mono">{topPlayers[1].xp.toLocaleString()} XP</p>
           </div>
 
-          {/* Rank 1 (Tallest / Gold Glow) */}
-          <div className="box-hover flex flex-col items-center p-3 sm:p-5 rounded-xl sm:rounded-2xl border-2 border-amber-500/50 bg-gradient-to-b from-amber-500/10 to-[var(--bg-card)] text-center relative order-2 shadow-[0_0_20px_rgba(245,158,11,0.2)] -translate-y-2 hover:-translate-y-4 transition-transform">
-            <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-amber-400 mb-1" />
-            <div className="text-3xl sm:text-5xl p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-[var(--bg-primary)] border-2 border-amber-400 mb-1.5 sm:mb-2">
+          {/* Rank 1 (Gold Champion / Tallest) */}
+          <div className="rpg-sheen flex flex-col items-center p-4 sm:p-6 rounded-3xl border-2 border-amber-400 bg-gradient-to-b from-amber-500/20 via-[#161208] to-[#0d0d28] text-center relative order-2 shadow-[0_0_30px_rgba(245,166,35,0.3)] -translate-y-2 sm:-translate-y-4 hover:-translate-y-5 transition-transform">
+            <Crown className="w-7 h-7 sm:w-9 sm:h-9 text-amber-400 mb-1 animate-bounce" />
+            <div className="text-4xl sm:text-5xl p-2.5 sm:p-3 rounded-2xl bg-[var(--bg-primary)] border-2 border-amber-400 mb-2 shadow-lg shadow-amber-500/20">
               {topPlayers[0].avatar_url || '🧙'}
             </div>
-            <Badge variant="gold" className="mb-1 text-[10px] sm:text-xs px-2 py-0">Champion</Badge>
-            <p className="font-black text-xs sm:text-base truncate max-w-full">{topPlayers[0].username}</p>
-            <p className="text-xs sm:text-sm text-amber-400 font-mono font-bold">Lv.{topPlayers[0].level}</p>
-            <p className="text-[10px] sm:text-xs text-muted">{topPlayers[0].xp} XP</p>
+            <Badge variant="gold" className="mb-1 text-[10px] sm:text-xs px-2.5 py-0.5 font-black uppercase tracking-widest shadow-sm">Realm Champion</Badge>
+            <p className="font-black text-sm sm:text-lg text-white truncate max-w-full">{topPlayers[0].username}</p>
+            <p className="text-xs sm:text-sm text-amber-300 font-mono font-black">Lv.{topPlayers[0].level}</p>
+            <p className="text-[11px] sm:text-xs text-amber-400/90 font-mono font-bold">{topPlayers[0].xp.toLocaleString()} XP</p>
           </div>
 
-          {/* Rank 3 */}
-          <div className="box-hover flex flex-col items-center p-2.5 sm:p-4 rounded-xl border border-amber-700/20 bg-[var(--bg-card)] text-center relative order-3">
-            <span className="text-xl sm:text-2xl mb-1">🥉</span>
-            <div className="text-2xl sm:text-4xl p-1.5 sm:p-2 rounded-xl sm:rounded-2xl bg-[var(--bg-primary)] border border-amber-700/30 mb-1.5 sm:mb-2">
+          {/* Rank 3 (Bronze) */}
+          <div className="rpg-sheen flex flex-col items-center p-3 sm:p-5 rounded-2xl border border-amber-700/40 bg-[#0d0d28] text-center relative order-3 shadow-[0_0_15px_rgba(180,83,9,0.1)]">
+            <span className="text-2xl sm:text-3xl mb-1">🥉</span>
+            <div className="text-3xl sm:text-4xl p-2 sm:p-2.5 rounded-2xl bg-[var(--bg-primary)] border-2 border-amber-700/40 mb-2 shadow-inner">
               {topPlayers[2].avatar_url || '🧙'}
             </div>
-            <p className="font-bold text-xs sm:text-sm truncate max-w-full">{topPlayers[2].username}</p>
-            <p className="text-[11px] sm:text-xs text-amber-600 font-mono">Lv.{topPlayers[2].level}</p>
-            <p className="text-[10px] sm:text-[11px] text-muted">{topPlayers[2].xp} XP</p>
+            <p className="font-extrabold text-xs sm:text-sm text-white truncate max-w-full">{topPlayers[2].username}</p>
+            <p className="text-xs text-amber-500 font-mono font-bold mt-0.5">Lv.{topPlayers[2].level}</p>
+            <p className="text-[10px] sm:text-xs text-purple-300 font-mono">{topPlayers[2].xp.toLocaleString()} XP</p>
           </div>
         </div>
       )}
 
       {/* Leaderboard Table List */}
-      <Card>
-        <div className="divide-y divide-[var(--border-default)]/60">
+      <Card className="border-purple-500/30 bg-[#0d0d26]/95 shadow-xl overflow-hidden">
+        <div className="divide-y divide-white/5">
           {topPlayers && topPlayers.length > 0 ? (
             topPlayers.map((player, index) => {
               const isCurrentUser = player.id === user.id
@@ -147,49 +147,49 @@ export default async function LeaderboardPage({
               return (
                 <div
                   key={player.id}
-                  className={`flex items-center justify-between p-3.5 sm:p-4 transition-colors ${
-                    isCurrentUser ? 'bg-amber-500/10 border-l-4 border-amber-500' : 'hover:bg-[var(--bg-secondary)]/40'
+                  className={`flex items-center justify-between p-3.5 sm:p-4.5 transition-colors ${
+                    isCurrentUser ? 'bg-amber-500/15 border-l-4 border-amber-400 shadow-inner' : 'hover:bg-white/[0.04]'
                   }`}
                 >
                   <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-                    <span className="w-6 text-center font-bold text-sm font-mono text-muted">
+                    <span className="w-7 text-center font-black text-sm sm:text-base font-mono text-slate-300">
                       {rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `#${rank}`}
                     </span>
 
-                    <div className="text-2xl sm:text-3xl p-1 bg-[var(--bg-primary)] rounded-lg border border-[var(--border-default)]">
+                    <div className="text-2xl sm:text-3xl p-1.5 bg-[var(--bg-primary)] rounded-xl border border-purple-500/30 shadow-sm flex-shrink-0">
                       {player.avatar_url || '🧙'}
                     </div>
 
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <p className="font-semibold text-sm truncate text-[var(--text-primary)]">
+                        <p className="font-bold text-sm sm:text-base truncate text-white">
                           {player.username}
                         </p>
                         {isCurrentUser && (
-                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500 text-black font-bold">
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-black uppercase tracking-wider shadow-sm">
                             YOU
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-muted">
+                      <p className="text-xs text-slate-300 font-medium">
                         Lv.{player.level} • {player.title}
                       </p>
                     </div>
                   </div>
 
                   <div className="text-right">
-                    <span className="font-mono text-sm font-bold text-amber-400 block">
+                    <span className="font-mono text-sm sm:text-base font-black text-amber-300 block" style={{ textShadow: '0 0 8px rgba(245,166,35,0.4)' }}>
                       {player.xp.toLocaleString()} XP
                     </span>
-                    <span className="text-[11px] text-muted font-mono">
-                      🪙 {player.coins} Gold
+                    <span className="text-[11px] text-slate-400 font-mono font-semibold">
+                      🪙 {player.coins.toLocaleString()} Gold
                     </span>
                   </div>
                 </div>
               )
             })
           ) : (
-            <p className="text-center py-8 text-sm text-muted">No players ranked yet. Be the first to claim glory!</p>
+            <p className="text-center py-8 text-sm text-slate-400">No players ranked yet. Be the first to claim glory!</p>
           )}
         </div>
       </Card>

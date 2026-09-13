@@ -15,7 +15,7 @@ export default function ScrollReveal({
   children,
   animation = "up",
   delay = 0,
-  threshold = 0.15,
+  threshold = 0.1,
   className = "",
   once = true,
 }: ScrollRevealProps) {
