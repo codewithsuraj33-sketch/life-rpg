@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { sendPhoneOtp, verifyPhoneOtp } from '@/app/_actions/auth'
-import { Phone, KeyRound, ArrowRight, RotateCcw, AlertCircle, ShieldCheck } from 'lucide-react'
+import { ArrowRight, RotateCcw, AlertCircle, ShieldCheck } from 'lucide-react'
 import { cn } from '@/app/_lib/utils'
 
 export default function PhoneAuthForm() {
@@ -56,7 +56,6 @@ export default function PhoneAuthForm() {
     setError(null)
 
     const res = await verifyPhoneOtp(fullPhoneNumber, otp)
-    // If redirect happens in server action, this code won't run, but if error returned:
     if (res?.error) {
       setError(res.error)
       setLoading(false)
@@ -81,9 +80,9 @@ export default function PhoneAuthForm() {
   return (
     <div className="w-full space-y-4">
       {error && (
-        <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-semibold flex items-start gap-2 animate-fade-in">
+        <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-semibold flex items-start gap-2 animate-fade-in">
           <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-          <span>{error}</span>
+          <span className="leading-tight">{error}</span>
         </div>
       )}
 
@@ -93,12 +92,12 @@ export default function PhoneAuthForm() {
             <label htmlFor="phone-input" className="block text-xs font-bold uppercase tracking-wider mb-2 text-[var(--text-secondary)]">
               Mobile Number
             </label>
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               {/* Country code selector */}
               <select
                 value={countryCode}
                 onChange={(e) => setCountryCode(e.target.value)}
-                className="w-24 px-2 py-3 rounded-xl bg-[var(--bg-secondary)] border border-purple-500/30 text-xs font-bold text-white focus:outline-none focus:border-[var(--cyan)]"
+                className="w-[84px] sm:w-24 px-2 py-3 rounded-xl bg-[var(--bg-secondary)] border border-purple-500/30 text-xs font-bold text-white focus:outline-none focus:border-[var(--cyan)] shrink-0 cursor-pointer"
               >
                 <option value="+91">🇮🇳 +91</option>
                 <option value="+1">🇺🇸 +1</option>
@@ -110,21 +109,18 @@ export default function PhoneAuthForm() {
                 <option value="+49">🇩🇪 +49</option>
               </select>
 
-              {/* Phone input */}
-              <div className="relative flex-1">
-                <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" />
-                <input
-                  id="phone-input"
-                  type="tel"
-                  inputMode="numeric"
-                  required
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
-                  placeholder="98765 43210"
-                  className="input pl-10 tracking-wider font-mono text-sm"
-                  maxLength={15}
-                />
-              </div>
+              {/* Phone input - clean padding, no icon overlap */}
+              <input
+                id="phone-input"
+                type="tel"
+                inputMode="numeric"
+                required
+                value={phone}
+                onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
+                placeholder="98765 43210"
+                className="input flex-1 min-w-0 px-3.5 tracking-wider font-mono text-sm"
+                maxLength={15}
+              />
             </div>
             <p className="text-[11px] text-[var(--text-muted)] mt-2">
               We&apos;ll dispatch a one-time OTP to log you directly into your realm.
@@ -156,34 +152,32 @@ export default function PhoneAuthForm() {
               <button
                 type="button"
                 onClick={() => setStep('phone')}
-                className="text-[11px] font-bold text-[var(--cyan)] hover:underline"
+                className="text-[11px] font-bold text-[var(--cyan)] hover:underline cursor-pointer"
               >
                 Change Number
               </button>
             </div>
 
             <div className="p-2.5 rounded-xl bg-purple-900/20 border border-purple-500/20 mb-3 flex items-center justify-between">
-              <span className="text-xs text-purple-200 font-mono">
+              <span className="text-xs text-purple-200 font-mono truncate mr-2">
                 Sent to: <strong className="text-white">{fullPhoneNumber}</strong>
               </span>
-              <ShieldCheck className="w-4 h-4 text-[var(--cyan)]" />
+              <ShieldCheck className="w-4 h-4 text-[var(--cyan)] shrink-0" />
             </div>
 
-            <div className="relative">
-              <KeyRound className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" />
-              <input
-                id="otp-input"
-                type="text"
-                inputMode="numeric"
-                required
-                maxLength={6}
-                value={otp}
-                onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
-                placeholder="• • • • • •"
-                className="input pl-10 text-center tracking-[0.5em] font-mono text-lg font-black"
-                autoFocus
-              />
-            </div>
+            {/* Symmetrically centered OTP box without icon collision */}
+            <input
+              id="otp-input"
+              type="text"
+              inputMode="numeric"
+              required
+              maxLength={6}
+              value={otp}
+              onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
+              placeholder="• • • • • •"
+              className="input w-full px-4 text-center tracking-[0.35em] sm:tracking-[0.5em] font-mono text-xl font-black text-white"
+              autoFocus
+            />
           </div>
 
           <button
@@ -202,7 +196,7 @@ export default function PhoneAuthForm() {
           </button>
 
           {/* Resend button */}
-          <div className="text-center pt-2">
+          <div className="text-center pt-1">
             <button
               type="button"
               onClick={handleResendOtp}

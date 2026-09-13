@@ -42,12 +42,12 @@ export default function GoogleSignInButton({ text = 'Continue with Google' }: { 
         type="button"
         onClick={handleGoogleSignIn}
         disabled={loading}
-        className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl text-sm font-bold text-white bg-white/5 hover:bg-white/10 border border-white/15 hover:border-purple-500/40 shadow-md transition-all duration-150 active:scale-95 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none"
+        className="w-full flex items-center justify-center gap-2.5 py-3 px-3.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-white/5 hover:bg-white/10 border border-white/15 hover:border-purple-500/40 shadow-md transition-all duration-150 active:scale-95 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none"
       >
         {loading ? (
-          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+          <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white/30 border-t-white rounded-full animate-spin shrink-0" />
         ) : (
-          <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" viewBox="0 0 24 24">
             <path
               fill="#4285F4"
               d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -66,7 +66,7 @@ export default function GoogleSignInButton({ text = 'Continue with Google' }: { 
             />
           </svg>
         )}
-        <span>{text}</span>
+        <span className="truncate">{text}</span>
       </button>
     </div>
   )
