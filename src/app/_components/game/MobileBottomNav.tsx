@@ -41,9 +41,10 @@ export default function MobileBottomNav() {
               key={item.href}
               href={item.href}
               className={cn(
-                'relative flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl transition-all duration-150',
+                'relative flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl transition-all duration-100',
                 'touch-action-manipulation select-none',
                 'active:scale-90 active:opacity-80',
+                'tap-flash tap-flash-strong',
                 isActive
                   ? 'text-[var(--cyan)]'
                   : 'text-[var(--text-muted)] hover:text-white'

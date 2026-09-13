@@ -5,7 +5,7 @@ import { completeQuest, deleteQuest } from '@/app/_actions/quests'
 import { Badge } from '@/app/_components/ui/Badge'
 import { DIFFICULTY_INFO } from '@/app/_lib/constants'
 import { Check, Flame, Trash2, Coins, Sparkles, Edit2, Skull } from 'lucide-react'
-import confetti from 'canvas-confetti'
+
 import { EditQuestModal } from './EditQuestModal'
 import { LevelUpModal } from './LevelUpModal'
 import { playSound } from '@/app/_lib/sound'
@@ -52,6 +52,8 @@ export function QuestCard({ quest, stats = [] }: QuestCardProps) {
       const res = await completeQuest(quest.id)
       if (res?.success) {
         // Fire confetti celebration
+        // Dynamic import to reduce initial bundle
+        const confetti = (await import('canvas-confetti')).default
         confetti({
           particleCount: 80,
           spread: 70,
@@ -169,14 +171,14 @@ export function QuestCard({ quest, stats = [] }: QuestCardProps) {
                 <button
                   onClick={handleComplete}
                   disabled={loading}
-                  className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[var(--purple)] to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-md shadow-purple-600/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                  className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[var(--purple)] to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-md shadow-purple-600/30 hover:scale-105 active:scale-90 transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-50 tap-flash"
                   title="Complete Quest"
                 >
                   <Check className="w-3.5 h-3.5" /> Complete
                 </button>
                 <button
                   onClick={() => setIsEditOpen(true)}
-                  className="text-slate-400 hover:text-amber-300 transition-all p-1.5 cursor-pointer rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10"
+                  className="text-slate-400 hover:text-amber-300 transition-all p-1.5 cursor-pointer rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10 tap-ring"
                   title="Edit quest"
                   aria-label="Edit quest"
                 >
@@ -186,7 +188,7 @@ export function QuestCard({ quest, stats = [] }: QuestCardProps) {
             )}
             <button
               onClick={handleDelete}
-              className="text-slate-400 hover:text-rose-400 transition-all p-1.5 cursor-pointer rounded-lg hover:bg-white/5 border border-transparent hover:border-rose-500/30"
+              className="text-slate-400 hover:text-rose-400 transition-all p-1.5 cursor-pointer rounded-lg hover:bg-white/5 border border-transparent hover:border-rose-500/30 tap-ring"
               title="Abandon quest"
               aria-label="Abandon quest"
             >

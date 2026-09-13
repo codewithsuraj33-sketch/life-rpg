@@ -241,7 +241,7 @@ export default async function DashboardPage() {
                     </div>
                     <Link
                       href="/quests"
-                      className="self-end sm:self-auto px-4 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[var(--purple)] to-indigo-600 text-white shadow-md shadow-purple-600/30 hover:scale-105 active:scale-95 transition-all text-center"
+                      className="self-end sm:self-auto px-4 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[var(--purple)] to-indigo-600 text-white shadow-md shadow-purple-600/30 hover:scale-105 active:scale-90 transition-all text-center tap-flash"
                     >
                       Complete
                     </Link>
@@ -276,28 +276,28 @@ export default async function DashboardPage() {
             <div className="flex flex-col gap-2.5">
               <Link
                 href="/quests"
-                className="group flex items-center justify-between p-3.5 border border-purple-500/20 bg-[#090920] hover:border-purple-500/60 hover:bg-purple-500/10 text-sm font-bold text-white rounded-xl transition-all shadow-sm"
+                className="group flex items-center justify-between p-3.5 border border-purple-500/20 bg-[#090920] hover:border-purple-500/60 hover:bg-purple-500/10 text-sm font-bold text-white rounded-xl transition-all shadow-sm tap-flash active:scale-[0.97]"
               >
                 <span className="flex items-center gap-2"><span>⚔️</span> Quest Board</span>
                 <ArrowRight className="w-4 h-4 text-purple-400 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/leaderboard"
-                className="group flex items-center justify-between p-3.5 border border-amber-500/20 bg-[#090920] hover:border-amber-500/60 hover:bg-amber-500/10 text-sm font-bold text-white rounded-xl transition-all shadow-sm"
+                className="group flex items-center justify-between p-3.5 border border-amber-500/20 bg-[#090920] hover:border-amber-500/60 hover:bg-amber-500/10 text-sm font-bold text-white rounded-xl transition-all shadow-sm tap-flash active:scale-[0.97]"
               >
                 <span className="flex items-center gap-2"><span>👑</span> View Leaderboard</span>
                 <ArrowRight className="w-4 h-4 text-amber-400 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/shop"
-                className="group flex items-center justify-between p-3.5 border border-cyan-500/20 bg-[#090920] hover:border-cyan-500/60 hover:bg-cyan-500/10 text-sm font-bold text-white rounded-xl transition-all shadow-sm"
+                className="group flex items-center justify-between p-3.5 border border-cyan-500/20 bg-[#090920] hover:border-cyan-500/60 hover:bg-cyan-500/10 text-sm font-bold text-white rounded-xl transition-all shadow-sm tap-flash active:scale-[0.97]"
               >
                 <span className="flex items-center gap-2"><span>🛒</span> Rewards Market</span>
                 <ArrowRight className="w-4 h-4 text-cyan-400 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/achievements"
-                className="group flex items-center justify-between p-3.5 border border-emerald-500/20 bg-[#090920] hover:border-emerald-500/60 hover:bg-emerald-500/10 text-sm font-bold text-white rounded-xl transition-all shadow-sm"
+                className="group flex items-center justify-between p-3.5 border border-emerald-500/20 bg-[#090920] hover:border-emerald-500/60 hover:bg-emerald-500/10 text-sm font-bold text-white rounded-xl transition-all shadow-sm tap-flash active:scale-[0.97]"
               >
                 <span className="flex items-center gap-2"><span>🏆</span> Check Achievements</span>
                 <ArrowRight className="w-4 h-4 text-emerald-400 group-hover:translate-x-1 transition-transform" />
