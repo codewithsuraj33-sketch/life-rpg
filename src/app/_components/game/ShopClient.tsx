@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { buyItem } from '@/app/_actions/shop'
 import { ShopItem } from '@/app/_lib/shop'
 import { Coins, Sparkles, ShoppingBag, CheckCircle, AlertCircle } from 'lucide-react'
-import confetti from 'canvas-confetti'
 
 export function ShopClient({
   items,
@@ -44,11 +43,13 @@ export function ShopClient({
         setCoins((prev) => prev - item.price)
         setNotification({ type: 'success', message: res.message || 'Purchased!' })
         
-        confetti({
-          particleCount: 60,
-          spread: 60,
-          origin: { y: 0.6 },
-        })
+        import('canvas-confetti').then((m) => {
+          m.default({
+            particleCount: 60,
+            spread: 60,
+            origin: { y: 0.6 },
+          })
+        }).catch(() => {})
       }
     } catch (e) {
       setNotification({ type: 'error', message: 'Purchase failed. Try again.' })

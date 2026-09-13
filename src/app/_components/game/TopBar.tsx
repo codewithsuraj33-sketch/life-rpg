@@ -66,7 +66,7 @@ export function TopBar({ profile }: { profile: Profile }) {
               <span className="text-rose-400 flex items-center gap-1" style={{ textShadow: '0 0 8px rgba(244,63,94,0.4)' }}>
                 ❤️ HP {profile.current_hp ?? 100}/{profile.max_hp ?? 100}
               </span>
-              <span className="text-purple-300 font-mono text-[11px]">
+              <span className="text-purple-300 font-mono text-[11px] truncate max-w-[110px] sm:max-w-none">
                 Lv.{profile.level} {profile.title}
               </span>
             </div>
@@ -100,26 +100,27 @@ export function TopBar({ profile }: { profile: Profile }) {
           </div>
         </div>
 
-        {/* Coins + Logout */}
+        {/* Coins + Desktop Settings/Logout */}
         <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
           <Link
             href="/shop"
-            className="flex items-center gap-1.5 text-amber-300 font-mono font-bold text-xs sm:text-sm bg-amber-500/15 border border-amber-500/40 px-3 py-1.5 rounded-xl hover:bg-amber-500/25 hover:border-amber-400 hover:shadow-[0_0_15px_rgba(245,166,35,0.25)] transition-all"
+            className="flex items-center gap-1.5 text-amber-300 font-mono font-bold text-xs sm:text-sm bg-amber-500/15 border border-amber-500/40 px-2.5 sm:px-3 py-1.5 rounded-xl hover:bg-amber-500/25 hover:border-amber-400 hover:shadow-[0_0_15px_rgba(245,166,35,0.25)] transition-all"
             title="Open Shop"
           >
             <span>🪙</span>
-            <span>{profile.coins.toLocaleString()}</span>
+            <span>{(profile.coins ?? 0).toLocaleString()}</span>
           </Link>
 
+          {/* Settings & Logout: visible on tablet/laptop; mobile accesses them via bottom nav & slide-out drawer */}
           <Link
             href="/settings"
-            className="p-2 text-slate-400 hover:text-[var(--cyan)] hover:bg-white/5 transition-all cursor-pointer rounded-xl border border-transparent hover:border-purple-500/30 active:scale-90"
+            className="hidden sm:flex p-2 text-slate-400 hover:text-[var(--cyan)] hover:bg-white/5 transition-all cursor-pointer rounded-xl border border-transparent hover:border-purple-500/30 active:scale-90"
             title="Settings"
           >
             <Settings className="w-4 h-4" />
           </Link>
 
-          <form action={signOut}>
+          <form action={signOut} className="hidden sm:block">
             <button
               type="submit"
               className="p-2 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer rounded-xl border border-transparent hover:border-rose-500/30"

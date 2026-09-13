@@ -251,7 +251,7 @@ export default function SettingsClient({
                   </div>
                 </div>
 
-                <div className="grid grid-cols-6 gap-2">
+                <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
                   {AVATAR_OPTIONS.map((emoji) => (
                     <button
                       key={emoji}

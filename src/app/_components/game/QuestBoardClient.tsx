@@ -103,7 +103,7 @@ export function QuestBoardClient({
           </button>
         </div>
 
-        <div className="self-end sm:self-auto flex-shrink-0">
+        <div className="flex justify-end sm:justify-start items-center flex-shrink-0">
           <CreateQuestModal stats={stats} />
         </div>
       </div>

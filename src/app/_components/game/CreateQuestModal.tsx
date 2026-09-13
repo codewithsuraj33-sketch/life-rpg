@@ -46,7 +46,7 @@ export function CreateQuestModal({ stats }: { stats: Stat[] }) {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="btn-primary flex items-center gap-2 px-5 py-2.5 rounded-full text-white font-bold text-sm shadow-lg shadow-purple-600/30 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+        className="btn-primary flex items-center gap-2 px-5 py-2.5 rounded-full text-white font-bold text-sm shadow-lg shadow-purple-600/30 hover:scale-105 active:scale-95 transition-all cursor-pointer tap-flash"
       >
         <Plus className="w-4 h-4" />
         <span>New Quest</span>
